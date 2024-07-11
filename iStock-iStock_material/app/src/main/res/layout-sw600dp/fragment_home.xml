@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <include
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineleft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Hello, Anderson!"
+        android:textColor="@color/side_menu_text_color"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Have a nice day!"
+        android:textColor="@color/side_menu_text_color_gray"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="40dp"
+        android:id="@+id/constranTopContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/subTitle">
+
+        <LinearLayout
+            android:id="@+id/lnrAssignedItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lnrCompletedItem"
+            android:layout_width="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg_purblue"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_gradiant_purblue" />
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_assigned_icon" />
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/assigned_item"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="18sp"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/assignedItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    tools:text="124"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="25sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnrCompletedItem"
+            app:layout_constraintStart_toEndOf="@+id/lnrAssignedItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg_green"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_gradiant_green" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_completed_item_icon" />
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/completed_item"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="18sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completedItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    tools:text="54"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="25sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/lnrPendingItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lnrNewlyClosedItem"
+            app:layout_constraintTop_toBottomOf="@+id/lnrAssignedItem"
+            android:layout_width="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg_orange"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_gradiant_orange" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pending_icon" />
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/pending_item"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="18sp"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pendingItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    tools:text="24"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="25sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnrNewlyClosedItem"
+            app:layout_constraintStart_toEndOf="@+id/lnrPendingItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/lnrCompletedItem"
+            android:layout_width="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg_blue"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_gradiant_blue" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_newly_created_icon" />
+
+            </FrameLayout>
+
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/new_item"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="18sp"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/newItem"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="14"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="25sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/container2"
+        android:layout_marginTop="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/constranTopContainer">
+
+
+
+        <LinearLayout
+            android:id="@+id/physicalverification"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:minHeight="230dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/home_verifcation_icon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/menu_physical_verification"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/idSyncUp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:minHeight="230dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/round_primary" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_baseline_sync_24" />
+
+            </FrameLayout>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/sync_up"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/home_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:minHeight="230dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/home_report_icon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/menu_report"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/container2">
+
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/home_help"
+            android:layout_width="0dp"
+            android:minHeight="230dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/home_help_icon" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/menu_help"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/idDownload"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:minHeight="230dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/round_primary" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_download_icon" />
+
+            </FrameLayout>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/downloads"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/home_Profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vector"
+            android:gravity="center"
+            android:minHeight="230dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/home_profile_icon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/my_account"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

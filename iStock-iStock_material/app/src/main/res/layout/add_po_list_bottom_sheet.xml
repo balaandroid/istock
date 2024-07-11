@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:behavior_hideable="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/nav_header_desc"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Po Number :"
+            android:textColor="@color/side_menu_text_color"
+            android:textSize="@dimen/_11ssp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/idPoNumber"
+                style="@style/edittext_style_without_drawable"
+                android:hint="@string/type_here"
+                android:nextFocusDown="@id/idModelNo"
+                android:textColor="@color/text_photo_color"
+                android:textSize="@dimen/_11ssp" />
+
+
+            <ImageView
+                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/scanImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/scan_new"
+             />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/idCancel"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:text="@string/cancle"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/idSave"
+                android:layout_width="wrap_content"
+                android:text="Save"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

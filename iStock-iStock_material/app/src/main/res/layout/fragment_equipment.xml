@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/type"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/assetType"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/make"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetMake"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/model_number"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetModelNo"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/serial_number"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/assetSerialNo"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/make"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/capacity"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetCapacity"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/configuration"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/assetConfiguration"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/rating"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetRating"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/size"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetSize"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/accuracy"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/assetAccuracy"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/piping"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetPiping"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/displacement"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetDisplacement"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/quantity"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/assetQuantity"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/unit_of_measure"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetUnitOfMeasure"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/year_of_installation"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/assetYearInstallation"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

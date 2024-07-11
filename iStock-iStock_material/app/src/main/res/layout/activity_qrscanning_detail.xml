@@ -1,0 +1,1971 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fertail.istock.QRScanningDetailActivity" />
+
+        <import type="android.view.View" />
+
+        <import type="com.fertail.istock.Constant" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topcl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/body_color"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/imgBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/round_white"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/left_arrow"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/uniqueid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Equ No : 90236678" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/horizontalView1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/topcl" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/deatils_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalView1">
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/second_drop_down_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/second_drop_down">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/desc_cons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/descriptionedt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/editext_bg"
+                            android:fontFamily="@font/poppins"
+                            android:hint="@string/type_here"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:inputType="textMultiLine"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/txt_tar_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/desc_cons"
+                        android:text="TAR"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/main_title_drop_down_bg"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/tar_list_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/txt_tar_heading"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_tar_heading"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Site Id"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idStorageLocationValue"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textStyle="bold"
+                                            android:text="Asset Number"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idStorageBinValue"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:text="Asset Condtion"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idSYSValue"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="T.Description"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="parent"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue1"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Location"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue2"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Status"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue3"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Asset Type"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue4"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Report Group"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue5"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Serial Number"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue6"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="model Number"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue7"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Model year"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/idUOMValue8"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+
+
+                                </LinearLayout>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <TextView
+                        android:id="@+id/txt_iv_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tar_list_txt"
+                        android:text="ASSET IMAGES AND NAMEPLATE"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/main_title_drop_down_bg"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/asset_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/assets_bg_new"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_iv_heading">
+
+                        <TextView
+                            android:id="@+id/assettv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Asset Images"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/assetviewone"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#40000000"
+                            app:layout_constraintTop_toBottomOf="@+id/assettv" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/assetviewone">
+
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcyAssets"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/image_item" />
+
+
+                            <TextView
+                                android:id="@+id/asset_txt_no_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:text="No Image Available!"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/asset_max"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/assets_bg_new"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/asset_cl">
+
+                        <TextView
+                            android:id="@+id/assettv_max"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:textStyle="bold"
+                            android:text="Asset maximo Images"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/assetviewone_max"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#40000000"
+                            app:layout_constraintTop_toBottomOf="@+id/assettv_max" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/assetviewone_max">
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcyAssets_max"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/image_item" />
+
+
+                            <TextView
+                                android:id="@+id/assetmax_txt_no_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:text="No Image Available!"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/name_plate_one_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="@+id/asset_max"
+                        app:layout_constraintStart_toStartOf="@+id/asset_max"
+                        app:layout_constraintTop_toBottomOf="@+id/asset_max">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/namePlateOne"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/name_plate_one_tv_value"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/namePlateOneTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:textStyle="bold"
+                                android:text="Name Plate 1"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/namePlateViewOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#40000000"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/namePlateOneTv" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/namePlateViewOne">
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rcyNamePlate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:scrollbars="horizontal"
+                                    tools:itemCount="1"
+                                    tools:listitem="@layout/image_item" />
+
+                                <TextView
+                                    android:id="@+id/nameplate_txt_no_data"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:paddingTop="5dp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:text="No Image Available!"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/name_plate_one_tv_value"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            android:fontFamily="@font/poppins"
+                            android:lines="4"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintLeft_toRightOf="@+id/namePlateOne"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Lörem ipsum bemär huruskap i den, fastän spede. Kron svennekoloni huruvida mina." />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/name_plate_two_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/name_plate_one_cl">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/namePlateTwo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/name_plate_two_tv_value"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/namePlateTwoTv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:textStyle="bold"
+                                android:paddingBottom="5dp"
+                                android:text="Name Plate 2"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/namePlateViewTwo"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#40000000"
+                                app:layout_constraintTop_toBottomOf="@+id/namePlateTwoTv" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/namePlateViewTwo">
+
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rcyNamePlate1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:scrollbars="horizontal"
+                                    tools:itemCount="1"
+                                    tools:listitem="@layout/image_item" />
+
+                                <TextView
+                                    android:id="@+id/nameplate1_txt_no_data"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:paddingTop="5dp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:text="No Image Available!"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/name_plate_two_tv_value"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            android:fontFamily="@font/poppins"
+                            android:lines="4"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintLeft_toRightOf="@+id/namePlateTwo"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Lörem ipsum bemär huruskap i den, fastän spede. Kron svennekoloni huruvida mina." />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cons_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/name_plate_two_cl"
+                        app:layout_constraintTop_toBottomOf="@+id/name_plate_two_cl">
+
+                        <LinearLayout
+                            android:id="@+id/remark_asset"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_2sdp"
+                            android:layout_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/nav_header_desc"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Image Remark"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_11ssp" />
+
+
+                            <TextView
+                                android:id="@+id/idRemark"
+                                style="@style/edittext_style_without_drawable"
+                                android:layout_height="@dimen/_50sdp"
+                                android:hint="@string/type_remark"
+                                android:inputType="textCapCharacters|textNoSuggestions"
+                                android:textColor="@color/text_photo_color"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/txt_asset_condi_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cons_remark"
+                        android:text="ASSET CONDITION -> Ranking"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/main_title_drop_down_bg"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/asset_condition_corr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/assets_bg_new"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_asset_condi_heading">
+
+                        <TextView
+                            android:id="@+id/assett_con_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingTop="5dp"
+                            android:padding="@dimen/_5sdp"
+                            android:textStyle="bold"
+                            android:text="Corrosion Image"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/assetviewone_con_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#40000000"
+                            app:layout_constraintTop_toBottomOf="@+id/assett_con_txt" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/assetviewone_con_view">
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcyAssets_condtion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/image_item" />
+
+                            <TextView
+                                android:id="@+id/assett_corr_txt_no_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:text="No Image Available!"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/asset_condition_leakage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/assets_bg_new"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/asset_condition_corr">
+
+                        <TextView
+                            android:id="@+id/assett_leakage_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingTop="5dp"
+                            android:padding="@dimen/_5sdp"
+                            android:textStyle="bold"
+                            android:text="Leakage Image"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/assetviewone_leakage_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#40000000"
+                            app:layout_constraintTop_toBottomOf="@+id/assett_leakage_txt" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/assetviewone_leakage_view">
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcyAssets_condtion_leakage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/image_item" />
+
+                            <TextView
+                                android:id="@+id/assett_leakage_txt_no_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:text="No Image Available!"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/asset_condition_damage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/assets_bg_new"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/asset_condition_leakage">
+
+                        <TextView
+                            android:id="@+id/assett_damage_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingTop="5dp"
+                            android:padding="@dimen/_5sdp"
+                            android:textStyle="bold"
+                            android:text="Damage Image"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/assetviewone_damage_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#40000000"
+                            app:layout_constraintTop_toBottomOf="@+id/assett_damage_txt" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/assetviewone_damage_view">
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcyAssets_condtion_damage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/image_item" />
+
+                            <TextView
+                                android:id="@+id/assett_damage_txt_no_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:text="No Image Available!"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cons_remark_condtion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/asset_condition_damage"
+                        app:layout_constraintTop_toBottomOf="@+id/asset_condition_damage">
+
+                        <LinearLayout
+                            android:id="@+id/remark_asset_condtion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_2sdp"
+                            android:layout_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/nav_header_desc"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Remark"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_11ssp" />
+
+
+                            <TextView
+                                android:id="@+id/idRemark_condtion"
+                                style="@style/edittext_style_without_drawable"
+                                android:layout_height="@dimen/_50sdp"
+                                android:hint="@string/type_remark"
+                                android:inputType="textCapCharacters|textNoSuggestions"
+                                android:textColor="@color/text_photo_color"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/txt_gis_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cons_remark_condtion"
+                        android:text="GIS AND NEW TAG NUMBER"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/main_title_drop_down_bg"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/old_tag_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_gis_heading">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            app:layout_constraintEnd_toStartOf="@+id/scancodeCl"
+                            app:layout_constraintHorizontal_bias="0.4"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/oldTagTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="Old Tag"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/oldTag"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#40000000"
+                                app:layout_constraintTop_toBottomOf="@+id/oldTagTv" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/oldTag">
+
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rcyOldTag"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:scrollbars="horizontal"
+                                    tools:itemCount="1"
+                                    tools:listitem="@layout/image_item" />
+
+                                <TextView
+                                    android:id="@+id/oldTagTxtNoData"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:paddingTop="5dp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:text="No Image Available!"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/scancodeCl"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
+                            android:background="@drawable/assets_bg_new"
+                            android:paddingStart="10dp"
+                            android:paddingTop="20dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/scanImage"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/scan_new"
+                                android:visibility="gone"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/idClear"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:padding="@dimen/_5sdp"
+                                android:layout_marginRight="10dp"
+                                android:visibility="gone"
+                                android:src="@drawable/ic_baseline_delete_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/scanImage"
+                                app:tint="@color/text_red" />
+
+                            <TextView
+                                android:id="@+id/oldTagId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bomenterbg"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/new_tag_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/old_tag_cl">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/assets_bg_new"
+                            app:layout_constraintEnd_toStartOf="@+id/newscancodeCl"
+                            app:layout_constraintHorizontal_bias="0.4"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/newTagTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="New Tag"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/newTag"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#40000000"
+                                app:layout_constraintTop_toBottomOf="@+id/newTagTv" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/newTag">
+
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rcynewTag"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:scrollbars="horizontal"
+                                    tools:itemCount="1"
+                                    tools:listitem="@layout/image_item" />
+
+                                <TextView
+                                    android:id="@+id/newTagTxtNoData"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:paddingTop="5dp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:text="No Image Available!"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/newscancodeCl"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
+                            android:background="@drawable/assets_bg_new"
+                            android:paddingStart="10dp"
+                            android:paddingTop="20dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/scanImagenew"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/scan_new"
+                                android:visibility="gone"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/idClearnew"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:padding="@dimen/_5sdp"
+                                android:layout_marginRight="10dp"
+                                android:visibility="gone"
+                                android:src="@drawable/ic_baseline_delete_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/scanImagenew"
+                                app:tint="@color/text_red" />
+
+                            <TextView
+                                android:id="@+id/newTagId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bomenterbg"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cons_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/new_tag_cl"
+                        app:layout_constraintTop_toBottomOf="@+id/new_tag_cl"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:orientation="horizontal">
+
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="@string/latitude"
+                                    android:textStyle="bold"
+                                    android:padding="@dimen/_5sdp"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/longitudeValue"
+                                    style="@style/edittext_style_without_drawable"
+                                    android:hint="@string/type_here"
+                                    android:paddingStart="@dimen/_5sdp"
+                                    android:textColor="@color/text_photo_color" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="@string/longitude"
+                                    android:textStyle="bold"
+                                    android:padding="@dimen/_5sdp"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+
+                                <TextView
+                                    android:id="@+id/latitudeValue"
+                                    style="@style/edittext_style_without_drawable"
+                                    android:hint="@string/type_here"
+                                    android:paddingStart="@dimen/_5sdp"
+                                    android:textColor="@color/text_photo_color" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/txt_addtional_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cons_location"
+                        android:text="ADDISTIONAL"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/main_title_drop_down_bg"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:id="@+id/addtional_linear_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/txt_addtional_heading"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_addtional_heading"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Present Location"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/present_loc_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textStyle="bold"
+                                            android:text="Existing Barcode"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/exist_barcode_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:text="Barcode No"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/barcode_no_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Remark Notes"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/remark_additional_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Owned By"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/owned_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Operate By"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/operate_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight=".6"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:padding="@dimen/_4sdp"
+                                            android:text="Maintained By"
+                                            android:textStyle="bold"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/_11ssp" />
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/maintained_txt"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/box_bg_rect"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:textColor="@color/black"
+                                            android:padding="@dimen/_4sdp"
+                                            android:textSize="@dimen/_10ssp" />
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.core.widget.NestedScrollView>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>
+
+
+
+
+
+
+

@@ -1,0 +1,1779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fertail.istock.ui.verification.PhotosFragment" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.verification.PhysicalObservationFragment">
+
+        <include
+            android:id="@+id/toolbar_photo"
+            layout="@layout/toolbar" />
+
+        <View
+            android:id="@+id/horizontalView1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_photo" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalView1">
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineleft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.10" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/base_cardview"
+                style="@style/Base.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/base_cardview"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conatner1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idfl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Item Unique Id:  "
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/oldTagText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:singleLine="true"
+                            android:text="P0GCC32AN001 "
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/txtEquip"
+                            app:layout_constraintStart_toEndOf="@+id/idfl"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtEquip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="SAP.Ref.No :"
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ideqpno"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/ideqpno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Pump"
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/arrow_button"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageButton
+                            android:id="@+id/arrow_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/left_arrow_black"
+                            android:clickable="false"
+                            android:focusable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/line_color"
+                        app:layout_constraintTop_toBottomOf="@+id/conatner1" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conatner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view1">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/Equpment_description"
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            app:layout_constraintStart_toEndOf="@+id/idDescription"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/oldTagNoDiscription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="@string/old_tag_number"
+                                android:textColor="@color/text__dark_gray_color"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/oldTagNoValue"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/oldTagNoValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/poppins"
+                                tools:text="100004"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="SmallSp" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idDescriptionContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="6X4d-mAh Industrial Mining Centrifugal Dredging Dewatering"
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/idDescription"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/idDescription" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/line_color"
+                        app:layout_constraintTop_toBottomOf="@+id/conatner2" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conatner3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idManufacturer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Technical Identification :"
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:singleLine="true"
+                            android:text="P0GCC32AN001"
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/idManuSNo"
+                            app:layout_constraintStart_toEndOf="@+id/idManufacturer"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idManuSNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="SAP.Ref.No :"
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/idSLNO"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/idSLNO"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="17FS614D10-002"
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/line_color"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@+id/conatner3" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conatner4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                        <ImageButton
+                            android:id="@+id/checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_check_box"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:singleLine="true"
+                            android:text="ASSET NOT FOUND"
+                            android:textColor="@color/text_red"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/checkbox"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+                app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+                app:layout_constraintTop_toBottomOf="@+id/base_cardview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <include
+                        android:id="@+id/customTab"
+                        layout="@layout/custom_tab_layout" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/footer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/customTab">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|top"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:background="@drawable/box_bg">
+
+                                <LinearLayout
+                                    android:id="@+id/functional"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="10dp">
+
+                                    <ImageButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background='@{viewModel.mFunctional ? @drawable/ic_check_box_blue : @drawable/ic_check_box }'
+                                        android:clickable="false"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:background="@drawable/ic_check_box_blue" />
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:clickable="false"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Functional"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/nonFunction"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="10dp">
+
+                                    <ImageButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background='@{viewModel.mNonnFunctional ? @drawable/ic_check_box_blue : @drawable/ic_check_box }'
+                                        android:clickable="false"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:background="@drawable/ic_check_box" />
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:clickable="false"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Non - Functional"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/standby"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="10dp">
+
+                                    <ImageButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background='@{viewModel.mStandBy ? @drawable/ic_check_box_blue : @drawable/ic_check_box }'
+                                        android:clickable="false"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:background="@drawable/ic_check_box" />
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:clickable="false"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Standby"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/box_bg_rect">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="Cause"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Corrosion"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Damage"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Leakage"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Vibration"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Temperature"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Smell"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@color/box_gray_box_light"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Noise"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@color/box_gray_box_light"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="High"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/corrosionHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mCorrosionHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_red" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/damageHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mDamageHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/leakageHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mLeakageHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/vibrationHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mVibrationHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/temperatureHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mTemperatureHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/smellHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mSmellHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/noiseHigh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mNoiseHigh ? @drawable/ic_radiobutton_red : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@color/box_gray_box_light"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="Medium"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/corrosionMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mCorrosionMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/damageMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mDamageMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_orange" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/leakageMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mLeakageMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/vibrationMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mVibrationMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/temperatureMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mTemperatureMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/smellMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mSmellMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/noiseMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mNoiseMedium ? @drawable/ic_radiobutton_orange : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_gray" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@color/box_gray_box_light"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="No"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/corrosionNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mCorrosionNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/damageNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mDamageNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/leakageNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mLeakageNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/vibrationNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mVibrationNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/temperatureNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mTemperatureNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/smellNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mSmellNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/noiseNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background='@{viewModel.mNoiseNo ? @drawable/ic_radiobutton_green : @drawable/ic_radiobutton_gray }'
+                                            android:clickable="false"
+                                            tools:background="@drawable/ic_radiobutton_green" />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@color/box_gray_box_light"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="Camera"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/captureCorrosion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/ic_camera_alt"
+                                            android:clickable="false"
+                                            android:visibility='@{viewModel.mCorrosionNo ? View.GONE : View.VISIBLE}' />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/captureDamage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/ic_camera_alt"
+                                            android:clickable="false"
+                                            android:visibility='@{viewModel.mDamageNo ? View.GONE : View.VISIBLE}' />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:id="@+id/captureLeakage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/ic_camera_alt"
+                                            android:clickable="false"
+                                            android:visibility='@{viewModel.mLeakageNo ? View.GONE : View.VISIBLE}' />
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/captureTemprature"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+                                        <ImageButton
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/ic_camera_alt"
+                                            android:clickable="false"
+                                            android:visibility='@{viewModel.mTemperatureNo ? View.GONE : View.VISIBLE}'
+                                            tools:visibility="visible" />
+
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:gravity="center">
+
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:minHeight="200dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/box_gray_box"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="Ranking"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/rank"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:contentDescription="@string/nav_header_desc"
+                                            android:fontFamily="@font/poppins_medium"
+                                            android:gravity="center"
+                                            android:padding="10dp"
+                                            android:text="4"
+                                            android:textColor="@color/side_menu_text_color"
+                                            android:textSize="22sp" />
+
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="@string/txt_remark"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+
+                                <EditText
+                                    android:id="@+id/remark"
+                                    style="@style/edittext_style_without_drawable_tab"
+                                    android:hint="@string/type_here"
+                                    android:layout_height="60dp"
+                                    android:inputType="textCapCharacters|textNoSuggestions"
+                                    android:textColor="@color/text_photo_color"
+                                    />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/box_bg"
+                                    android:orientation="vertical">
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Corrosion"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcyCorrosion"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:scrollbars="horizontal"
+                                            tools:itemCount="1"
+                                            tools:listitem="@layout/image_item" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/box_bg"
+                                    android:orientation="vertical">
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Damage"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp">
+
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcyDamage"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:scrollbars="horizontal"
+                                            tools:itemCount="1"
+                                            tools:listitem="@layout/image_item" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/box_bg"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Leakage"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcyLeakage"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:scrollbars="horizontal"
+                                            tools:itemCount="1"
+                                            tools:listitem="@layout/image_item" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/box_bg"
+                                    android:orientation="vertical">
+
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:padding="10dp"
+                                        android:text="Temperature"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@color/line_color"
+                                        app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcyTemparature"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:scrollbars="horizontal"
+                                            tools:itemCount="1"
+                                            tools:listitem="@layout/image_item" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                    <include
+                        android:id="@+id/footer"
+                        layout="@layout/footer_view" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

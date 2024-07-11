@@ -1,0 +1,198 @@
+<resources>
+    <string name="app_name">iStock</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="type_remark">Type Remark</string>
+
+
+    <string name="menu_home">Home</string>
+    <string name="menu_Profile">My Profile</string>
+    <string name="menu_verification">Verification</string>
+    <string name="menu_physical_verification">Physical Verification</string>
+    <string name="menu_report">Report</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_stock_take">Stock Take</string>
+    <string name="menu_stock_report">Stock Report</string>
+    <string name="menu_stock_help">Stock Help</string>
+    <string name="menu_material_master">Material Master</string>
+    <string name="menu_asset_master">Asset Master</string>
+
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_asked_questions">Frequently Asked Questions</string>
+    <string name="proceed_with_your">Proceed with your</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <array name="menuOptions">
+        <item>Home</item>
+        <item>My Profile</item>
+        <item>Verification</item>
+        <item>Report</item>
+        <item>Help</item>
+    </array>
+    <string name="title_activity_test_main">TestMainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="physical_observation">Physical Observation</string>
+    <string name="equipment_info">Equipment Info</string>
+    <string name="photos">Photos</string>
+    <string name="location">Location</string>
+    <string name="continue_">Continue</string>
+    <string name="cancle">Cancel</string>
+    <string name="back">Back</string>
+    <string name="expired_date">Expired Date</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="label">Label</string>
+    <string name="select">Select</string>
+    <string name="specification">Specification</string>
+    <string name="type_here">Type here</string>
+    <string name="done">Done</string>
+    <string name="upload_photo">Upload Photos</string>
+    <string name="upload">Upload</string>
+    <string name="uploaded_files">Uploaded Files</string>
+    <string name="location_information">LOCATION INFORMATION</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="address">Address</string>
+    <string name="functional_location">Functional Location</string>
+    <string name="equipment">Equipment</string>
+    <string name="levels">Levels</string>
+    <string name="functLocCat">FunctLocCat</string>
+    <string name="abc_indic">ABC Indic</string>
+    <string name="supfunctLoc">SupFunctLoc</string>
+    <string name="object_type">Object Type</string>
+    <string name="start_date">Start Date</string>
+    <string name="authgroup">Auth.Group</string>
+    <string name="main_workCtr">Main WorkCtr</string>
+    <string name="wbs_element">WBS Element</string>
+    <string name="plants_section">Plant Section</string>
+    <string name="single_inst">Single Inst</string>
+    <string name="manufCountry">ManufCountry</string>
+    <string name="manufSerialNo">ManufSerialNo.</string>
+    <string name="funclocclass">Funcloc Class</string>
+    <string name="model_number">Model Number</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="catalogprofile">Catalog Profile</string>
+    <string name="asset">Asset</string>
+    <string name="comment">Comment</string>
+    <string name="techIdentNo">TechIdentNo</string>
+    <string name="equipCategory">EquipCategory</string>
+    <string name="weight">Weight</string>
+    <string name="unit_of_weight">Unit Of Weight</string>
+    <string name="size_dimensions">Size/dimensions</string>
+    <string name="acquisValue">AcquisValue</string>
+    <string name="acquistn_dat">Acquistn. Dat</string>
+    <string name="constract_year">Constract Year</string>
+    <string name="constract_month">Constract Month</string>
+    <string name="manufPartNo">ManufPartNo</string>
+    <string name="auth_group">Auth. Group</string>
+    <string name="start_up_date">Start-up Date</string>
+    <string name="main_plant">Main Plant</string>
+    <string name="company_code">Company Code</string>
+    <string name="sub_number">Sub-number</string>
+    <string name="contruction_id">Contruction ID</string>
+    <string name="catalog_profile">catalog Profile</string>
+    <string name="main_wnork_center">Main Work Center</string>
+    <string name="equip_description">Equip Description</string>
+    <string name="functional_description">Functional Description:</string>
+    <string name="Equpment_description">Equipment Description:</string>
+    <string name="description">Description</string>
+    <string name="upload_photo_content">Upload photos you want to share \n with your team.</string>
+    <string name="upload_photo_content_2">You can upload a photos by <font color='#483992'>importing \nor camera </font> with your phone.</string>
+
+    <string name="assigned_item">Assigned Items</string>
+    <string name="completed_item">Completed Items</string>
+    <string name="pending_item">Pending Items</string>
+    <string name="new_item">Newly Created</string>
+    <string name="my_account">My Account</string>
+    <string name="downloads">Downloads</string>
+    <string name="add_new_item">New Items</string>
+    <string name="new_creation">New Creation</string>
+    <string name="sync_up">Sync Up</string>
+    <string name="asset_data">Asset Data</string>
+    <string name="asset_images">Asset Images</string>
+    <string name="asset_condition">Asset Condition</string>
+    <string name="gis_bar_code">GIS</string>
+    <string name="business">Business</string>
+    <string name="major_class">Major Class</string>
+    <string name="minor_class">Minor Class</string>
+    <string name="equipment_class">Equipment Class</string>
+    <string name="equipment_type">Equipment Type</string>
+    <string name="region">Region</string>
+    <string name="city">City</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="fl_code">FL Code</string>
+    <string name="parent_asset">Parent Asset</string>
+    <string name="product_identifier">Product Identifier</string>
+    <string name="area">Area</string>
+    <string name="child_asset">Child Asset</string>
+    <string name="function">Function</string>
+    <string name="sub_area">Sub Area</string>
+    <string name="type">Type</string>
+    <string name="make">Make</string>
+    <string name="Year_of_manufacturing">Year of Manufacturing</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="capacity">Capacity</string>
+    <string name="configuration">Configuration</string>
+    <string name="rating">Rating</string>
+    <string name="size">Size</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="piping">Piping</string>
+    <string name="displacement">Displacement</string>
+    <string name="quantity">Quantity</string>
+    <string name="unit_of_measure">Unit of Measure</string>
+    <string name="year_of_installation">Year of Installation</string>
+    <string name="length">Length</string>
+    <string name="asset_classification"><u>Asset Classification</u></string>
+    <string name="Functional_location_hierarchy"><u>Functional Location Hierarchy</u></string>
+    <string name="name_plate">Name Plate</string>
+    <string name="function_or_minor">Function / Minor class</string>
+    <string name="sub_system">Sub System/Identifier</string>
+    <string name="floc_code">FLOC Code</string>
+    <string name="old_tag_number">Old Tag Number</string>
+    <string name="new_bar_code_number">New Bar Code Number</string>
+    <string name="bom_name">BOM Name</string>
+    <string name="qty">Qty</string>
+    <string name="uom">UOM</string>
+    <string name="bom_image">BOM Image</string>
+    <string name="bom">BOM</string>
+    <string name="no_record_found">No record found!!</string>
+    <string name="new_tag_number">New Tag No</string>
+    <string name="txt_bom_unique_id">BOM Unique ID</string>
+    <string name="txt_remark">Remark</string>
+
+    <string name="txt_mat_code"><b>FAR ID :</b> <font color='#6B7280'>%1$s</font></string>
+    <string name="txt_sap_code"><b>Region : </b> <font color='#6B7280'>%1$s</font></string>
+    <string name="txt_bin_code"><b>BIN.No: </b> <font color='#6B7280'>%1$s</font></string>
+    <string name="txt_item_code"><b>ItemCode: </b> <font color='#6B7280'>%1$s</font></string>
+    <string name="txt_storage_locsation"><b>Storage location</b> <font color='#6B7280'>%1$s</font></string>
+    <string name="txt_slop_code"><b>SLOC:</b> %1$s</string>
+    <string name="material_description">Material Description:</string>
+    <string name="material_list">Material</string>
+    <string name="equipment_list">Equipment</string>
+
+    <string name="under_construction">Screen Under Construction</string>
+    <string name="location_hierarchy">Location Hierarchy</string>
+    <string name="title_activity_barcode_scanner">BarcodeScannerActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+</resources>

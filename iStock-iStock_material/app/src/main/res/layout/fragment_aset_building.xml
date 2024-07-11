@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/length"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/buildingLength"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Building ID"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/buildingID"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Building Name"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/buildingName"
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/location"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:id="@+id/buildingLocation"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Height"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:id="@+id/buildingHeight"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/nav_header_desc"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Width"
+                        android:textColor="@color/side_menu_text_color"
+                        android:textSize="16sp" />
+
+
+
+                    <EditText
+                        style="@style/edittext_style_without_drawable_tab"
+                        android:hint="@string/type_here"
+                        android:id="@+id/buildingWidth"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:textColor="@color/text_photo_color" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

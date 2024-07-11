@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.IStock.AppBarOverlay">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/body_color"
+        app:titleTextColor="@color/black"
+        app:subtitleTextColor="@color/black"
+        app:popupTheme="@style/Theme.IStock.PopupOverlay" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/humberger_menu"
+                android:layout_width="30dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:layout_height="18dp"/>
+
+            <ImageButton
+                android:layout_margin="10dp"
+                android:id="@+id/btnBack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/round_white"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/left_arrow"
+                android:visibility="gone"
+                tools:visibility="gone"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbarTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/app_name"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/side_menu_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:id="@+id/btnLogout"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/round_white"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/logout"
+                android:layout_width="60dp"
+                tools:visibility="gone"
+                android:layout_height="60dp" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/round_white"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/search_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+
+            <ImageButton
+                android:id="@+id/btnRefresh"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/ic_baseline_refresh_24"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/search_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/idSelect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/select"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+</com.google.android.material.appbar.AppBarLayout>
+

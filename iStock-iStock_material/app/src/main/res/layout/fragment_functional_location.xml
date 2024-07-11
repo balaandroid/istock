@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/nav_header_desc"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/asset_classification"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/business"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetBusiness"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/major_class"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetMajorClass"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/minor_class"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetMinorClass"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/horizontalView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/line_color"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:layout_marginTop="30dp"
+                    android:contentDescription="@string/nav_header_desc"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/Functional_location_hierarchy"
+                    android:textColor="@color/side_menu_text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/region"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetRegion"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/city"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetCity"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/area"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetArea"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/sub_area"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetSubArea"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/function_or_minor"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetMinorClassFuntional"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/sub_system"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetSubSystemIdentifier"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/equipment_class"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetEquipmentClassFunctional"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/equipment_type"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/assetEquipmentType"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/location"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/flocCode"
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/type_here"
+                            android:textColor="@color/text_photo_color" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="invisible">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/nav_header_desc"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/equipment_type"
+                            android:textColor="@color/side_menu_text_color"
+                            android:textSize="16sp" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/edittext_style_tab"
+                            android:hint="@string/select"
+                            android:textColor="@color/text_photo_color" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:orientation="vertical">-->
+
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content">-->
+
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/leftContainer"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginEnd="5dp"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    app:layout_constraintEnd_toStartOf="@+id/rightContainer"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFa`mily="@font/poppins_medium"-->
+            <!--                        android:text="@string/levels"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/functLocCat"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/supfunctLoc"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/object_type"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/main_workCtr"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/plants_section"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/single_inst"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/manufCountry"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/manufSerialNo"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/asset"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                </LinearLayout>-->
+
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/rightContainer"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="5dp"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintStart_toEndOf="@+id/leftContainer"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/functional_location"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/abc_indic"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/object_type"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/authgroup"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/wbs_element"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/catalogprofile"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/manufacturer"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/model_number"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/funclocclass"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        style="@style/edittext_style_without_drawable_tab"-->
+            <!--                        android:hint="@string/select"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                    <com.google.android.material.textview.MaterialTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="10dp"-->
+            <!--                        android:contentDescription="@string/nav_header_desc"-->
+            <!--                        android:fontFamily="@font/poppins_medium"-->
+            <!--                        android:text="@string/comment"-->
+            <!--                        android:textColor="@color/side_menu_text_color"-->
+            <!--                        android:textSize="16sp" />-->
+
+            <!--                    <EditText-->
+            <!--                        style="@style/edittext_style_tab"-->
+            <!--                        android:hint="@string/type_here"-->
+            <!--                        android:textColor="@color/text_photo_color" />-->
+
+
+            <!--                </LinearLayout>-->
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:contentDescription="@string/nav_header_desc"-->
+            <!--                android:fontFamily="@font/poppins_medium"-->
+            <!--                android:text="@string/description"-->
+            <!--                android:textColor="@color/side_menu_text_color"-->
+            <!--                android:textSize="16sp" />-->
+
+            <!--            <EditText-->
+            <!--                style="@style/edittext_style_without_drawable"-->
+            <!--                android:layout_height="80dp"-->
+            <!--                android:background="@drawable/editext_bg_gray"-->
+            <!--                android:gravity="start"-->
+            <!--                android:hint="@string/type_here"-->
+            <!--                android:singleLine="false"-->
+            <!--                android:textColor="@color/text_photo_color"-->
+            <!--                android:textSize="18sp" />-->
+
+
+            <!--        </LinearLayout>-->
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+
+</LinearLayout>

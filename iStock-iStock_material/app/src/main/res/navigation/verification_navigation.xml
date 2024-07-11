@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/verification_navigation"
+    app:startDestination="@+id/nav_physical_observation">
+
+    <fragment
+        android:id="@+id/nav_physical_observation"
+        android:name="com.fertail.istock.ui.verification.PhysicalObservationFragment"
+        android:label="@string/menu_material_master"
+        tools:layout="@layout/fragment_physical_observation">
+        <action
+            android:id="@+id/action_nav_equipment_info"
+            app:destination="@+id/nav_equipment_info"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_equipment_info"
+        android:name="com.fertail.istock.ui.verification.EquipemntInfoFragment"
+        android:label="@string/menu_material_master"
+        tools:layout="@layout/fragment_epuipment_info">
+        <action
+            android:id="@+id/action_nav_photos"
+            app:destination="@+id/nav_photos"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_photos"
+        android:name="com.fertail.istock.ui.verification.PhotosFragment"
+        android:label="@string/menu_material_master"
+        tools:layout="@layout/fragment_photos">
+        <action
+            android:id="@+id/action_nav_location"
+            app:destination="@+id/nav_location"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_location"
+        android:name="com.fertail.istock.ui.verification.LocationFragment"
+        android:label="@string/menu_material_master"
+        tools:layout="@layout/fragment_location">
+
+        <action
+            android:id="@+id/action_nav_bom"
+            app:destination="@+id/nav_bom"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_bom"
+        android:name="com.fertail.istock.ui.verification.BOMFragment"
+        android:label="@string/menu_material_master"
+        tools:layout="@layout/fragment_bom" />
+
+</navigation>

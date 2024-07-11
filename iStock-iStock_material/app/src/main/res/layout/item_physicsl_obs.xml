@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/nav_header_desc"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Physical Observation"
+                android:singleLine="true"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="@dimen/_10ssp" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/idPhysicalObservation"
+                style="@style/edittext_style"
+                android:hint="@string/type_here"
+                android:textColor="@color/text_photo_color"
+                android:textSize="@dimen/_11ssp" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/nav_header_desc"
+                android:fontFamily="@font/poppins_medium"
+                android:text="No.of items"
+                android:textColor="@color/side_menu_text_color"
+                android:textSize="@dimen/_10ssp" />
+
+
+            <EditText
+                android:id="@+id/idNoOfItemExpired"
+                style="@style/edittext_style_without_drawable"
+                android:hint="@string/type_here"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:textColor="@color/text_photo_color"
+                android:textSize="@dimen/_11ssp" />
+
+        </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_baseline_remove_circle_24"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"/>
+
+
+    </LinearLayout>
+
+

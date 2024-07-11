@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fifth_drop_down_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/bomuniqueTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="BOM Unique Number"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bomuniqueValuetwoTv" />
+
+        <EditText
+            android:id="@+id/edtNewTagNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Text Here"
+            android:background="@drawable/editext_bg"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="12sp"
+            android:padding="10dp"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            app:layout_constraintLeft_toLeftOf="@+id/bomuniqueTv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bomuniqueTv" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/new_barcode_cl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/assets_bg_new"
+            app:layout_constraintEnd_toStartOf="@+id/new_barcode_scanner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtNewTagNo">
+
+            <TextView
+                android:id="@+id/newBarcodeTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="New Bar Code Number"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/newBarcode"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#40000000"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/newBarcodeTv" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newBarcode">
+
+                <FrameLayout
+                    android:id="@+id/addNewBarcodeImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/add_image_new"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/newBarcode" />
+
+                </FrameLayout>
+
+                <!--                                <ImageView-->
+                <!--                                    android:id="@+id/testImage"-->
+                <!--                                    android:layout_width="100dp"-->
+                <!--                                    android:layout_height="100dp"/>-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyAssets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scrollbars="horizontal"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/image_item" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/new_barcode_scanner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/assets_bg_new"
+            app:layout_constraintBottom_toBottomOf="@+id/new_barcode_cl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/new_barcode_cl"
+            app:layout_constraintTop_toBottomOf="@+id/edtNewTagNo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/newTagScanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_rectangle_6258"
+                        android:clickable="false" />
+
+                    <ImageButton
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_baseline_document_scanner_24"
+                        android:clickable="false" />
+
+                </FrameLayout>
+
+                <!--                                <ImageView-->
+                <!--                                    android:id="@+id/testImage"-->
+                <!--                                    android:layout_width="100dp"-->
+                <!--                                    android:layout_height="100dp"/>-->
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/newTagText"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/editext_bg"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/poppins"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:scrollbars="horizontal"
+                    android:textSize="12sp"
+                    tools:text="123232434343" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/old_tagnumber_cl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/assets_bg_new"
+            app:layout_constraintEnd_toStartOf="@+id/old_tagnumber_scanner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_barcode_cl">
+
+            <TextView
+                android:id="@+id/oldTagNumberTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Old Tag Number"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/oldTagNumbercode"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#40000000"
+                app:layout_constraintTop_toBottomOf="@+id/oldTagNumberTv" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/oldTagNumbercode">
+
+                <FrameLayout
+                    android:id="@+id/addOldTagImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/add_image_new"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/oldTagNumbercode" />
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyOldTag"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/image_item" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/old_tagnumber_scanner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/assets_bg_new"
+            app:layout_constraintBottom_toBottomOf="@+id/old_tagnumber_cl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/old_tagnumber_cl"
+            app:layout_constraintTop_toBottomOf="@+id/new_barcode_cl">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/oldTagScanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_rectangle_6258"
+                        android:clickable="false" />
+
+                    <ImageButton
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_baseline_document_scanner_24"
+                        android:clickable="false" />
+
+                </FrameLayout>
+
+                <!--                                <ImageView-->
+                <!--                                    android:id="@+id/testImage"-->
+                <!--                                    android:layout_width="100dp"-->
+                <!--                                    android:layout_height="100dp"/>-->
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/editext_bg"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"
+                    android:id="@+id/oldTagNoValue"
+                    android:scrollbars="horizontal"
+                    tools:text="123232434343" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/bomuniquetwoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="BOM Name"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/bomuniqueValuetwoTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Text Here"
+            android:paddingLeft="5dp"
+            android:background="@drawable/editext_bg"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="12sp"
+            android:padding="10dp"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            app:layout_constraintLeft_toLeftOf="@+id/bomuniquetwoTv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bomuniquetwoTv" />
+
+        <TextView
+            android:id="@+id/qtyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Qty"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@+id/qtyValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/old_tagnumber_cl" />
+
+        <EditText
+            android:id="@+id/qtyValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bomenterbg"
+            android:hint="Text Here"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:fontFamily="@font/poppins"
+            android:textSize="12sp"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            app:layout_constraintEnd_toStartOf="@+id/uomValue"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qtyTv" />
+
+
+        <TextView
+            android:id="@+id/uomTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="UOM"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@+id/uomValue"
+            app:layout_constraintTop_toBottomOf="@+id/old_tagnumber_cl" />
+
+        <EditText
+            android:id="@+id/uomValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bomenterbg"
+            android:hint="Text Here"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:fontFamily="@font/poppins"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:textSize="12sp"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/qtyValue"
+            app:layout_constraintTop_toBottomOf="@+id/qtyTv" />
+
+        <TextView
+            android:id="@+id/descriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/uomValue" />
+
+        <EditText
+            android:id="@+id/descriptionValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bomenterbg"
+            android:hint="Text Here"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTv" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bom_image_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/assets_bg_new"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionValue">
+
+            <TextView
+                android:id="@+id/bomImageTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Bom Image"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/bomImageBorder"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#40000000"
+                app:layout_constraintTop_toBottomOf="@+id/bomImageTv" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bomImageBorder">
+
+                <FrameLayout
+                    android:id="@+id/addBOMImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/add_image_new"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bomImageBorder" />
+
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyBOM"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scrollbars="horizontal"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/image_item" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/name_plate_three_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bom_image_cl">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/namePlateThree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/assets_bg_new"
+                app:layout_constraintHorizontal_weight="0.4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/name_plate_three_tv_value"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/namePlateThreeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="12sp"
+                    android:text="Name Plate Image"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/namePlateViewThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#40000000"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/namePlateThreeTv" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/namePlateViewThree">
+
+                    <FrameLayout
+                        android:id="@+id/addnameplateImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/add_image_new" />
+                    </FrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcyNamePlate"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/image_item" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/name_plate_three_tv_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/assets_bg_new"
+                android:lines="4"
+                android:paddingLeft="5dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins"
+                android:paddingTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="0.6"
+                app:layout_constraintLeft_toRightOf="@+id/namePlateThree"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Lörem ipsum bemär huruskap i den, fastän spede. Kron svennekoloni huruvida mina." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="@dimen/_500sdp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/idTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20sp"
+        tools:text="Title"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="16sp"
+        android:textColor="@color/text__dark_gray_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/idSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:hint="Search"
+        android:padding="@dimen/_10sdp"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableTint="@color/text_gray"
+        android:drawablePadding="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@drawable/editext_bg"
+        app:layout_constraintTop_toBottomOf="@+id/idTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/idSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/helpRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_functional"
+            tools:itemCount="12"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/idNoData"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18sp"
+        android:text="No data!!"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

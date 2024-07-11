@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <declare-styleable name="BottomNavigationViewIndicator">
+        <attr name="targetBottomNavigation" format="reference"/>
+        <attr name="clipableBackground" format="reference|color"/>
+    </declare-styleable>
+
+    <bool name="isTablet" tools:ignore="MissingDefaultResource">false</bool>
+
+</resources>

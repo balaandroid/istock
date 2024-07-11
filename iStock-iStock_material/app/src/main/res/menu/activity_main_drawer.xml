@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/drawer_home"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/drawer_profile"
+            android:title="@string/menu_Profile" />
+
+        <item
+            android:id="@+id/nav_verification"
+            android:icon="@drawable/drawer_verification"
+            android:title="@string/menu_stock_take" />
+
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/drawer_report"
+            android:title="@string/menu_stock_report" />
+
+        <item
+            android:id="@+id/nav_stock_help"
+            android:icon="@drawable/drawer_stock_help"
+            android:title="@string/menu_stock_help" />
+
+<!--        <item-->
+<!--            android:id="@+id/nav_material"-->
+<!--            android:icon="@drawable/drawer_material"-->
+<!--            android:title="@string/menu_material_master" />-->
+
+
+<!--        <item-->
+<!--            android:id="@+id/nav_asset"-->
+<!--            android:icon="@drawable/drawer_asset"-->
+<!--            android:title="@string/menu_asset_master" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_help"-->
+<!--            android:icon="@drawable/drawer_help_"-->
+<!--            android:title="@string/menu_help" />-->
+
+    </group>
+</menu>

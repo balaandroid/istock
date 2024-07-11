@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.verification.PhysicalObservationFragment">
+
+    <include
+        android:id="@+id/toolbarEquipmentInfo"
+        layout="@layout/toolbar" />
+
+    <View
+        android:id="@+id/horizontalView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipmentInfo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalView1">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineleft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/base_cardview"
+            style="@style/Base.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+            app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/base_cardview"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conatner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idfl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Item Unique Id:  "
+                        android:textColor="@color/text__dark_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/oldTagText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:singleLine="true"
+                        android:text="P0GCC32AN001 "
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/txtEquip"
+                        app:layout_constraintStart_toEndOf="@+id/idfl"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txtEquip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="SAP.Ref.No :"
+                        android:textColor="@color/text__dark_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ideqpno"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/ideqpno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Pump"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/arrow_button"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageButton
+                        android:id="@+id/arrow_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/left_arrow_black"
+                        android:clickable="false"
+                        android:focusable="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/line_color"
+                    app:layout_constraintTop_toBottomOf="@+id/conatner1" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conatner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/Equpment_description"
+                        android:textColor="@color/text__dark_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        app:layout_constraintStart_toEndOf="@+id/idDescription"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/oldTagNoDiscription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/old_tag_number"
+                            android:textColor="@color/text__dark_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/oldTagNoValue"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/oldTagNoValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/poppins"
+                            tools:text="100004"
+                            android:textColor="@color/text_gray_color"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SmallSp" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idDescriptionContent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="6X4d-mAh Industrial Mining Centrifugal Dredging Dewatering"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/idDescription"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/idDescription" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/line_color"
+                    app:layout_constraintTop_toBottomOf="@+id/conatner2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conatner3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view2">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idManufacturer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:text="Technical Identification :"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:singleLine="true"
+                        android:text="P0GCC32AN001"
+                        android:textColor="@color/text__dark_gray_color"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/idManuSNo"
+                        app:layout_constraintStart_toEndOf="@+id/idManufacturer"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idManuSNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="SAP.Ref.No :"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/idSLNO"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/idSLNO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="17FS614D10-002"
+                        android:textColor="@color/text__dark_gray_color"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/line_color"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/conatner3" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conatner4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                    <ImageButton
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_check_box"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:singleLine="true"
+                        android:text="ASSET NOT FOUND"
+                        android:textColor="@color/text_red"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/checkbox"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineright"
+            app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+            app:layout_constraintTop_toBottomOf="@+id/base_cardview">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <include
+                    android:id="@+id/customTab"
+                    layout="@layout/custom_tab_layout" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/footer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customTab">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/box_bg"
+                                android:orientation="vertical">
+
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Asset"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp">
+
+                                    <FrameLayout
+                                        android:id="@+id/addAssetImage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageButton
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_rectangle_6258"
+                                            android:clickable="false" />
+
+                                        <ImageButton
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_add_icon"
+                                            android:clickable="false" />
+
+                                    </FrameLayout>
+
+                                    <!--                                <ImageView-->
+                                    <!--                                    android:id="@+id/testImage"-->
+                                    <!--                                    android:layout_width="100dp"-->
+                                    <!--                                    android:layout_height="100dp"/>-->
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rcyAssets"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:scrollbars="horizontal"
+                                        tools:itemCount="1"
+                                        tools:listitem="@layout/image_item" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/box_bg"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Name plate 1"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp">
+
+                                    <FrameLayout
+                                        android:id="@+id/addnameplateImage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageButton
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_rectangle_6258"
+                                            android:clickable="false" />
+
+                                        <ImageButton
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_add_icon"
+                                            android:clickable="false" />
+
+                                    </FrameLayout>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rcyNamePlate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal"
+                                        tools:itemCount="1"
+                                        tools:listitem="@layout/image_item" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/box_bg"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Name plate 2"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp">
+
+                                    <FrameLayout
+                                        android:id="@+id/addnameplateImage1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageButton
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_rectangle_6258"
+                                            android:clickable="false" />
+
+                                        <ImageButton
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center"
+                                            android:layout_margin="10dp"
+                                            android:background="@drawable/ic_add_icon"
+                                            android:clickable="false" />
+
+                                    </FrameLayout>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rcyNamePlate1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal"
+                                        tools:itemCount="1"
+                                        tools:listitem="@layout/image_item" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/box_bg_gray"
+                                android:orientation="vertical">
+
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Name Plate Text"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/txtExtracted"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins"
+                                        android:padding="10dp"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/box_bg_gray"
+                                android:orientation="vertical">
+
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Name Plate Text"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/txtExtracted1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins"
+                                        android:padding="10dp"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="16sp" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/box_bg"
+                                android:orientation="vertical">
+
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/nav_header_desc"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:padding="10dp"
+                                    android:text="Old Tag"
+                                    android:textColor="@color/side_menu_text_color"
+                                    android:textSize="16sp" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/line_color"
+                                    app:layout_constraintTop_toBottomOf="@+id/toolbar_physical_observation" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1">
+
+                                        <FrameLayout
+                                            android:id="@+id/addOldTag"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageButton
+                                                android:layout_width="60dp"
+                                                android:layout_height="60dp"
+                                                android:layout_margin="10dp"
+                                                android:background="@drawable/ic_rectangle_6258"
+                                                android:clickable="false" />
+
+                                            <ImageButton
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"
+                                                android:layout_gravity="center"
+                                                android:layout_margin="10dp"
+                                                android:background="@drawable/ic_add_icon"
+                                                android:clickable="false" />
+
+                                        </FrameLayout>
+
+                                        <!--                                <ImageView-->
+                                        <!--                                    android:id="@+id/testImage"-->
+                                        <!--                                    android:layout_width="100dp"-->
+                                        <!--                                    android:layout_height="100dp"/>-->
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcyOldTag"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:scrollbars="horizontal"
+                                            tools:itemCount="1"
+                                            tools:listitem="@layout/image_item" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1">
+
+                                        <FrameLayout
+                                            android:id="@+id/oldTagScanner"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageButton
+                                                android:layout_width="60dp"
+                                                android:layout_height="60dp"
+                                                android:layout_margin="10dp"
+                                                android:background="@drawable/ic_rectangle_6258"
+                                                android:clickable="false" />
+
+                                            <ImageButton
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"
+                                                android:layout_gravity="center"
+                                                android:layout_margin="10dp"
+                                                android:background="@drawable/ic_baseline_document_scanner_24"
+                                                android:clickable="false" />
+
+                                        </FrameLayout>
+
+                                        <!--                                <ImageView-->
+                                        <!--                                    android:id="@+id/testImage"-->
+                                        <!--                                    android:layout_width="100dp"-->
+                                        <!--                                    android:layout_height="100dp"/>-->
+
+                                        <com.google.android.material.textview.MaterialTextView
+                                            android:id="@+id/scannerText"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/ic_rectangle_6258"
+                                            android:gravity="center_vertical"
+                                            android:maxLines="1"
+                                            android:padding="10dp"
+                                            android:scrollbars="horizontal"
+                                            tools:text="123232434343" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+
+                <include
+                    android:id="@+id/footer"
+                    layout="@layout/footer_view" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

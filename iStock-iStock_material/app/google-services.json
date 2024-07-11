@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "365910672723",
+    "project_id": "istock-e3f90",
+    "storage_bucket": "istock-e3f90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365910672723:android:203fa6a4cb0aef48084da6",
+        "android_client_info": {
+          "package_name": "com.fertail.istock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365910672723-1uv3fp924l85j4iv1conhsc95t7s42qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJLFKl7psdGMuekkARzYUaRNOB-xdrqSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365910672723-1uv3fp924l85j4iv1conhsc95t7s42qk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365910672723:android:c532f726c82a1e75084da6",
+        "android_client_info": {
+          "package_name": "com.fertail.istock.material.material"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365910672723-1uv3fp924l85j4iv1conhsc95t7s42qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJLFKl7psdGMuekkARzYUaRNOB-xdrqSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365910672723-1uv3fp924l85j4iv1conhsc95t7s42qk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
