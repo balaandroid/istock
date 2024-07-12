@@ -72,7 +72,6 @@ class GetNounViewModel @Inject constructor(private val database : ProjectDeo) : 
                 } else {
                     onError("Error : ${response.message()} ")
                 }
-
             }
         }
     }
@@ -139,7 +138,6 @@ class GetNounViewModel @Inject constructor(private val database : ProjectDeo) : 
             val response = mIStockService.getAssetTypeMaster()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-
                     response.body()?.let {
                         database.insertClassificationHierarchyMaster(it)
                     }

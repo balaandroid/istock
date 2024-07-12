@@ -103,7 +103,7 @@ class LoginActivity : BaseActivity() {
                     iStockApplication.appPreference.KEY_USER_NAME = username
                     iStockApplication.appPreference.KEY_USER_PASSWORD = password
                     iStockApplication.appPreference.KEY_IS_LOGGED_IN = true
-                    iStockApplication.appPreference.KEY_ACCESS_TOKEN = it.accessToken!!
+                    iStockApplication.appPreference.KEY_ACCESS_TOKEN = it.accessToken
 
                     viewModel.getUserInfo(username)
 //                DashboardActivity.start(this)
