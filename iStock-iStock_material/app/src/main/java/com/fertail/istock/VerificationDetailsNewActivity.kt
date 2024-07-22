@@ -2,11 +2,13 @@ package com.fertail.istock
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -19,10 +21,14 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -32,6 +38,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fertail.istock.databinding.ActivityVerificationDetailsNewBinding
 import com.fertail.istock.databinding.ItemPhysicslObsBinding
+import com.fertail.istock.iStockApplication.Companion.getWorkbookUriList
+import com.fertail.istock.iStockApplication.Companion.saveWorkbookUriList
 import com.fertail.istock.model.*
 import com.fertail.istock.ui.bottomsheet.ChooseModifierBottomsheet
 import com.fertail.istock.ui.bottomsheet.ChooseNounBottomsheet
@@ -45,6 +53,7 @@ import com.fertail.istock.ui.verification.adapter.AttributesAdapter
 import com.fertail.istock.util.CommonUtils
 import com.fertail.istock.util.GenericRecyclerAdapter
 import com.fertail.istock.util.NetworkUtils
+import com.fertail.istock.util.SessionManager
 import com.fertail.istock.view_model.FileUploadViewModel
 import com.fertail.istock.view_model.GetAllMasterViewModel
 import com.fertail.istock.view_model.GetNounViewModel
@@ -59,16 +68,29 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
+import jxl.Workbook
+import jxl.format.Colour
+import jxl.write.Label
+import jxl.write.WritableCell
+import jxl.write.WritableCellFormat
+import jxl.write.WritableFont
+import jxl.write.WritableSheet
+import jxl.write.WritableWorkbook
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -82,6 +104,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     var cameraorgallery: String = ""
     lateinit var fileUploadViewModel: FileUploadViewModel
 
+    private lateinit var session: SessionManager
+
     var masterData: GetAllMasterDataResponse? = null
 
     lateinit var viewModel: GetAllMasterViewModel
@@ -89,6 +113,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     private val getNounViewModel: GetNounViewModel by viewModels()
 
     val nounList: ArrayList<NounTable> = ArrayList()
+
+    private val uriArrayList=ArrayList<Uri>()
 
 
     private val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -167,6 +193,14 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
             mPVData = data
             caller.startActivity(intent)
         }
+
+        val headers = listOf(
+            "Item Code", "Material Code", "Material Description", "Noun", "Modifier", "Attribute", "Value", "SAP Code",
+            "Storage Location", "Storage Bin", "Sys Balance", "Uom", "Manufacturer Name", "Part Number", "Model Number", "Equip Name", "Equip Model No",
+            "Equip Manufacture", "Equip Tag No", "Equip Serial No", "Additional information", "PHY Balance",
+            "Bin Updation/Miss Placed", "Material Images", "Name Plate Images", "Name Plate Text", "Additional info", "Remark",
+            "Physical Observation", "No.Of.Items"
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -176,6 +210,7 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         fileUploadViewModel = ViewModelProvider(this)[FileUploadViewModel::class.java]
         viewModel = ViewModelProvider(this)[GetAllMasterViewModel::class.java]
         EventBus.getDefault().register(this)
+        session = SessionManager(this)
         observeViewModel()
         initViewClicks()
         observeDatabase()
@@ -1056,6 +1091,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
             }
 
             view.idNoOfItemExpired.setText(eachItem.qty)
+
+
             view.idPhysicalObservation.text = eachItem.observation
 
             view.idPhysicalObservation.setOnClickListener {
@@ -1077,6 +1114,7 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                         supportFragmentManager,
                         FunctionalLocationChooseBottomsheet.TAG)
                 }else{
+
                     Toast.makeText(this,"No data Available here !!",Toast.LENGTH_SHORT).show()
                 }
 
@@ -1118,8 +1156,16 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
     }
 
-    private fun updateObseData() {
 
+    private fun showDropdownDialog(items: Array<String>, onItemSelected: (String) -> Unit) {
+        val builder = AlertDialog.Builder(this)
+        builder.setItems(items) { dialog, which ->
+            onItemSelected(items[which])
+        }
+        builder.show()
+    }
+
+    private fun updateObseData() {
         if (mPVData.observations.isEmpty()) {
             val attributesItem = Observations()
             attributesItem.isLast = true
@@ -1137,19 +1183,12 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
     private fun saveDataToLocal() {
 
-//N
-//        if (VerificationDetailsMobileActivity.mPVData.gIS.lattitudeStart.isNullOrEmpty() || VerificationDetailsMobileActivity.mPVData.gIS.longitudeStart.isNullOrEmpty()){
-//            CommonUtils.showAlert(this,
-//                "Please Enter location information")
-//            return
-//        }
-
         CommonUtils.showAlertWithCancel(
             this,
             "Item Saved successfully in local database",
             object : CommonInterface {
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun btnPositiveSelected(dialog: DialogInterface) {
-
                     val gson = Gson()
                     val myType = object : TypeToken<UserDetailsResponse>() {}.type
                     val userDetailsResponse = gson.fromJson<UserDetailsResponse>(
@@ -1182,6 +1221,7 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
                     iStockApplication.saveData(iStockApplication.pvDataModel.data)
                     iStockApplication.saveCompletedItem(mPVData)
+                    createExcelSheet(mPVData)
                     isneedtoSave = false
                     dialog.dismiss()
                     finish()
@@ -1192,6 +1232,318 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                 }
             })
 
+    }
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createExcelSheet(vararg mPVData: PVData) {
+        try {
+            val today = LocalDate.now()
+            val fileName = "material${today.format(DateTimeFormatter.ofPattern("yyyyMMdd"))}.xls"
+
+            val filePath = fileName
+            val file = File(this.getExternalFilesDir(null), filePath)
+
+            val workbook: WritableWorkbook
+            val sheet: WritableSheet
+
+            if (file.exists()) {
+                workbook = Workbook.createWorkbook(file, Workbook.getWorkbook(file))
+                sheet = workbook.getSheet(0)
+            } else {
+                // Create new workbook and sheet
+                workbook = Workbook.createWorkbook(file)
+                sheet = workbook.createSheet("Material Sheet", 0)
+
+                val headerFont = WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD)
+                val headerFormat = WritableCellFormat(headerFont)
+                headerFormat.setBackground(Colour.GRAY_25)
+
+                for ((index, header) in headers.withIndex()) {
+                    sheet.addCell(Label(index, 0, header, headerFormat))
+                }
+            }
+
+            val dataFont = WritableFont(WritableFont.ARIAL, 10)
+            val dataFormat = WritableCellFormat(dataFont)
+
+
+            for (data in mPVData) {
+                var row = -1
+
+                for (rowIndex in 1 until sheet.rows) {
+                    val cell: WritableCell = sheet.getWritableCell(0, rowIndex)
+                    if (cell.contents == data.itemcode) {
+                        row = rowIndex
+                        break
+                    }
+                }
+
+                // If no matching row is found, add a new row
+                if (row == -1) {
+                    row = sheet.rows
+                }
+
+                if (data.characteristics.isNotEmpty()) {
+                    for (data1 in data.characteristics) {
+                        sheet.addCell(Label(0, row, data.itemcode, dataFormat))
+                        sheet.addCell(Label(1, row, data.assetNo, dataFormat))
+                        sheet.addCell(Label(2, row, data.equipmentDesc, dataFormat))
+                        sheet.addCell(Label(3, row, data.noun, dataFormat))
+                        sheet.addCell(Label(4, row, data.modifier, dataFormat))
+                        sheet.addCell(Label(5, row, data1.characteristic, dataFormat))
+                        sheet.addCell(Label(6, row, data1.definition, dataFormat))
+                        sheet.addCell(Label(7, row, data.sapcode, dataFormat))
+                        sheet.addCell(Label(8, row, data.stroageLocation, dataFormat))
+                        sheet.addCell(Label(9, row, data.stroageBin, dataFormat))
+                        sheet.addCell(Label(10, row, data.sysbal, dataFormat))
+                        sheet.addCell(Label(11, row, data.uOM, dataFormat))
+                        sheet.addCell(Label(12, row, data.vendorsuppliers.manufacture, dataFormat))
+                        sheet.addCell(Label(13, row, data.vendorsuppliers.partNo, dataFormat))
+                        sheet.addCell(Label(14, row, data.vendorsuppliers.modelNo, dataFormat))
+                        sheet.addCell(Label(15, row, data.equipment.name, dataFormat))
+                        sheet.addCell(Label(16, row, data.equipment.modelno, dataFormat))
+                        sheet.addCell(Label(17, row, data.equipment.manufacturer, dataFormat))
+                        sheet.addCell(Label(18, row, data.equipment.tagno, dataFormat))
+                        sheet.addCell(Label(19, row, data.equipment.serialno, dataFormat))
+                        sheet.addCell(Label(20, row, data.equipment.additionalinfo, dataFormat))
+                        sheet.addCell(Label(21, row, data.pysbal, dataFormat))
+                        sheet.addCell(Label(22, row, data.binUpdation, dataFormat))
+                        sheet.addCell(Label(23, row, data.assetImages.assetImage.toString(), dataFormat))
+                        sheet.addCell(Label(24, row, data.assetImages.nameplateImgs.toString(), dataFormat))
+                        val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+                        val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+
+                        sheet.addCell(Label(25, row, normalText.trim(), dataFormat))
+                        sheet.addCell(Label(26, row, data.additioninfo, dataFormat))
+                        sheet.addCell(Label(27, row, data.cRemarks, dataFormat))
+
+                        for (data2 in data.observations) {
+                            sheet.addCell(Label(28, row, data2.observation, dataFormat))
+                            sheet.addCell(Label(29, row, data2.qty, dataFormat))
+                        }
+                        row++
+                    }
+                } else {
+                    sheet.addCell(Label(0, row, data.itemcode, dataFormat))
+                    sheet.addCell(Label(1, row, data.assetNo, dataFormat))
+                    sheet.addCell(Label(2, row, data.equipmentDesc, dataFormat))
+                    sheet.addCell(Label(3, row, data.noun, dataFormat))
+                    sheet.addCell(Label(4, row, data.modifier, dataFormat))
+                    sheet.addCell(Label(5, row, "", dataFormat))
+                    sheet.addCell(Label(6, row, "", dataFormat))
+                    sheet.addCell(Label(7, row, data.sapcode, dataFormat))
+                    sheet.addCell(Label(8, row, data.stroageLocation, dataFormat))
+                    sheet.addCell(Label(9, row, data.stroageBin, dataFormat))
+                    sheet.addCell(Label(10, row, data.sysbal, dataFormat))
+                    sheet.addCell(Label(11, row, data.uOM, dataFormat))
+                    sheet.addCell(Label(12, row, data.vendorsuppliers.manufacture, dataFormat))
+                    sheet.addCell(Label(13, row, data.vendorsuppliers.partNo, dataFormat))
+                    sheet.addCell(Label(14, row, data.vendorsuppliers.modelNo, dataFormat))
+                    sheet.addCell(Label(15, row, data.equipment.name, dataFormat))
+                    sheet.addCell(Label(16, row, data.equipment.modelno, dataFormat))
+                    sheet.addCell(Label(17, row, data.equipment.manufacturer, dataFormat))
+                    sheet.addCell(Label(18, row, data.equipment.tagno, dataFormat))
+                    sheet.addCell(Label(19, row, data.equipment.serialno, dataFormat))
+                    sheet.addCell(Label(20, row, data.equipment.additionalinfo, dataFormat))
+                    sheet.addCell(Label(21, row, data.pysbal, dataFormat))
+                    sheet.addCell(Label(22, row, data.binUpdation, dataFormat))
+                    sheet.addCell(Label(23, row, data.assetImages.assetImage.toString(), dataFormat))
+                    sheet.addCell(Label(24, row, data.assetImages.nameplateImgs.toString(), dataFormat))
+                    val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+                    val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+
+                    sheet.addCell(Label(25, row, normalText.trim(), dataFormat))
+                    sheet.addCell(Label(26, row, data.additioninfo, dataFormat))
+                    sheet.addCell(Label(27, row, data.cRemarks, dataFormat))
+
+                    for (data2 in data.observations) {
+                        sheet.addCell(Label(28, row, data2.observation, dataFormat))
+                        sheet.addCell(Label(29, row, data2.qty, dataFormat))
+                    }
+                    row++
+                }
+            }
+
+            for (col in headers.indices) {
+                sheet.setColumnView(col, getPreferredColumnWidth(sheet, col))
+            }
+
+            val contentUri = FileProvider.getUriForFile(this, "${this.packageName}.provider", file)
+            if (!uriArrayList.contains(contentUri)) {
+                uriArrayList.add(contentUri)
+            }
+
+//            uriArrayList.add(contentUri)
+
+            val uris = session.getUriArrayList("excel_material")
+            if (uris != null) {
+                if (!uris.contains(contentUri)) {
+                    uris.add(contentUri)
+                    session.setUriArrayList("excel_material", uris)
+                }
+            } else {
+                val newList = mutableListOf(contentUri)
+                session.setUriArrayList("excel_material", newList)
+            }
+
+            workbook.write()
+            workbook.close()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
+
+//    private fun createExcelSheet(vararg mPVData: PVData) {
+//        val filePath = "data.xls"
+//        val file = File(this.getExternalFilesDir(null), filePath)
+//
+//        try {
+//            val workbook = Workbook.createWorkbook(file)
+//            val sheet = workbook.createSheet("Material Sheet", 0)
+//
+//            val headerFont = WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD)
+//            val headerFormat = WritableCellFormat(headerFont)
+//            headerFormat.setBackground(Colour.GRAY_25)
+//
+//            val dataFont = WritableFont(WritableFont.ARIAL, 10)
+//            val dataFormat = WritableCellFormat(dataFont)
+//
+//            val headers = listOf("Item Code", "Material Code", "Material Description", "Noun","Modifier","Attribute","Value","SAP Code",
+//                "Storage Location", "Storage Bin", "Sys Balance", "Uom","Manufacturer Name","Part Number","Model Number","Equip Name","Equip Model No",
+//                "Equip Manufacture","Equip Tag No","Equip Serial No","Additional information","PHY Balance",
+//                "Bin Updation/Miss Placed","Material Images","Name Plate Images","Name Plate Text","Additional info","Remark",
+//                "Physical Observation","No.Of.Items")
+//
+//
+//            for ((index, header) in headers.withIndex()) {
+//                sheet.addCell(Label(index, 0, header, headerFormat))
+//            }
+//
+//            var row = 1
+//            for (data in mPVData) {
+//                if(data.characteristics.isNotEmpty()){
+//                    for (data1 in data.characteristics){
+//                        sheet.addCell(Label(0, row, data.itemcode,dataFormat))
+//                        sheet.addCell(Label(1, row, data.assetNo,dataFormat))
+//                        sheet.addCell(Label(2, row,data.equipmentDesc,dataFormat))
+//                        sheet.addCell(Label(3, row,data.noun,dataFormat))
+//                        sheet.addCell(Label(4, row,data.modifier,dataFormat))
+//                        sheet.addCell(Label(5, row,data1.characteristic,dataFormat))
+//                        sheet.addCell(Label(6, row,data1.definition,dataFormat))
+//                        sheet.addCell(Label(7, row,data.sapcode,dataFormat))
+//                        sheet.addCell(Label(8, row,data.stroageLocation,dataFormat))
+//                        sheet.addCell(Label(9, row,data.stroageBin,dataFormat))
+//                        sheet.addCell(Label(10, row,data.sysbal,dataFormat))
+//                        sheet.addCell(Label(11, row,data.uOM,dataFormat))
+//                        sheet.addCell(Label(12, row,data.vendorsuppliers.manufacture,dataFormat))
+//                        sheet.addCell(Label(13, row,data.vendorsuppliers.partNo,dataFormat))
+//                        sheet.addCell(Label(14, row,data.vendorsuppliers.modelNo,dataFormat))
+//                        sheet.addCell(Label(15, row,data.equipment.name,dataFormat))
+//                        sheet.addCell(Label(16, row,data.equipment.modelno,dataFormat))
+//                        sheet.addCell(Label(17, row,data.equipment.manufacturer,dataFormat))
+//                        sheet.addCell(Label(18, row,data.equipment.tagno,dataFormat))
+//                        sheet.addCell(Label(19, row,data.equipment.serialno,dataFormat))
+//                        sheet.addCell(Label(20, row,data.equipment.additionalinfo,dataFormat))
+//                        sheet.addCell(Label(21, row,data.pysbal,dataFormat))
+//                        sheet.addCell(Label(22, row,data.binUpdation,dataFormat))
+//                        sheet.addCell(Label(23, row, data.assetImages.assetImage.toString(),dataFormat))
+//                        sheet.addCell(Label(24, row, data.assetImages.nameplateImgs.toString(),dataFormat))
+//                        val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+//                        val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+//
+//                        sheet.addCell(Label(25, row,normalText.trim(),dataFormat))
+//                        sheet.addCell(Label(26, row, data.additioninfo,dataFormat))
+//                        sheet.addCell(Label(27, row, data.cRemarks,dataFormat))
+//
+//                        for (data2 in data.observations){
+//                            sheet.addCell(Label(28, row, data2.observation,dataFormat))
+//                            sheet.addCell(Label(29, row, data2.qty,dataFormat))
+//                        }
+//                        row++
+//                    }
+//                }else{
+//                    sheet.addCell(Label(0, row, data.itemcode,dataFormat))
+//                    sheet.addCell(Label(1, row, data.assetNo,dataFormat))
+//                    sheet.addCell(Label(2, row,data.equipmentDesc,dataFormat))
+//                    sheet.addCell(Label(3, row,data.noun,dataFormat))
+//                    sheet.addCell(Label(4, row,data.modifier,dataFormat))
+//                    sheet.addCell(Label(5, row, "",dataFormat))
+//                    sheet.addCell(Label(6, row, "",dataFormat))
+//                    sheet.addCell(Label(7, row,data.sapcode,dataFormat))
+//                    sheet.addCell(Label(8, row,data.stroageLocation,dataFormat))
+//                    sheet.addCell(Label(9, row,data.stroageBin,dataFormat))
+//                    sheet.addCell(Label(10, row,data.sysbal,dataFormat))
+//                    sheet.addCell(Label(11, row,data.uOM,dataFormat))
+//                    sheet.addCell(Label(12, row,data.vendorsuppliers.manufacture,dataFormat))
+//                    sheet.addCell(Label(13, row,data.vendorsuppliers.partNo,dataFormat))
+//                    sheet.addCell(Label(14, row,data.vendorsuppliers.modelNo,dataFormat))
+//                    sheet.addCell(Label(15, row,data.equipment.name,dataFormat))
+//                    sheet.addCell(Label(16, row,data.equipment.modelno,dataFormat))
+//                    sheet.addCell(Label(17, row,data.equipment.manufacturer,dataFormat))
+//                    sheet.addCell(Label(18, row,data.equipment.tagno,dataFormat))
+//                    sheet.addCell(Label(19, row,data.equipment.serialno,dataFormat))
+//                    sheet.addCell(Label(20, row,data.equipment.additionalinfo,dataFormat))
+//                    sheet.addCell(Label(21, row,data.pysbal,dataFormat))
+//                    sheet.addCell(Label(22, row,data.binUpdation,dataFormat))
+//                    sheet.addCell(Label(23, row, data.assetImages.assetImage.toString(),dataFormat))
+//                    sheet.addCell(Label(24, row, data.assetImages.nameplateImgs.toString(),dataFormat))
+//                    val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+//                    val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+//
+//                    sheet.addCell(Label(25, row,normalText.trim(),dataFormat))
+//                    sheet.addCell(Label(26, row, data.additioninfo,dataFormat))
+//                    sheet.addCell(Label(27, row, data.cRemarks,dataFormat))
+//
+//                    for (data2 in data.observations){
+//                        sheet.addCell(Label(28, row, data2.observation,dataFormat))
+//                        sheet.addCell(Label(29, row, data2.qty,dataFormat))
+//                    }
+//                    row++
+//                }
+//
+//            }
+//
+//
+//            for (col in headers.indices) {
+//                sheet.setColumnView(col, getPreferredColumnWidth(sheet, col))
+//            }
+//
+//            val contentUri = FileProvider.getUriForFile(this, "${this.packageName}.provider", file)
+//            uriArrayList.add(contentUri)
+//
+//            val uris = session.getUriArrayList("excel_material")
+//            if (uris != null) {
+//                uris.add(contentUri)
+//                session.setUriArrayList("excel_material", uris)
+//            } else {
+//                val newList = mutableListOf(contentUri)
+//                session.setUriArrayList("excel_material", newList)
+//            }
+//
+//            workbook.write()
+//            workbook.close()
+//
+//        }catch (e:Exception){
+//            e.printStackTrace()
+//        }
+//
+//    }
+
+
+    private fun getPreferredColumnWidth(sheet: jxl.Sheet, col: Int): Int {
+        var maxWidth = 0
+        val numRows = sheet.rows
+        for (row in 0 until numRows) {
+            val cell = sheet.getCell(col, row)
+            val contentWidth = cell.contents.length * 256  // 1 character = 256 units
+            maxWidth = maxOf(maxWidth, contentWidth)
+        }
+        return (maxWidth / 256) + 1  // Convert back from units to characters and add a little extra padding
     }
 
 

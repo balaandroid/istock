@@ -15,8 +15,7 @@ import com.fertail.istock.util.CommonUtils
 class CompletedReportAdapter(
     val mList: ArrayList<PVData>,
     private val listener: ReportClickListener,
-    private val requireContext: Context
-) :
+    private val requireContext: Context) :
     RecyclerView.Adapter<CompletedReportAdapter.ViewHolder>(), Constant {
 
     var showSelectIcon: Boolean = false

@@ -52,9 +52,7 @@ class GetNounViewModel @Inject constructor(private val database : ProjectDeo) : 
         PagingConfig(
             pageSize = 100,
             enablePlaceholders = false,
-            initialLoadSize = 100
-        ),
-    ) {
+            initialLoadSize = 100),) {
         MyPagingSource(database, queryTxt)
     }.flow.cachedIn(viewModelScope)
 

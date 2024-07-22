@@ -3,7 +3,9 @@ package com.fertail.istock.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +16,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
-import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ErrorCallback
-import com.budiyev.android.codescanner.ScanMode
-import com.fertail.istock.DashboardActivity
 import com.fertail.istock.R
 import com.fertail.istock.ui.dataclass.actionSelected
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -31,7 +27,6 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class ScannerActivity : AppCompatActivity() {
-    private lateinit var codeScanner: CodeScanner
     private lateinit var scannerView: PreviewView
     private lateinit var cameraExecutor: ExecutorService
 
@@ -51,48 +46,9 @@ class ScannerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
         scannerView = findViewById<PreviewView>(R.id.previewView)
-//
-//        codeScanner = CodeScanner(this, scannerView)
-//        // Parameters (default values)
-//        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
-//        codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
-//        // ex. listOf(BarcodeFormat.QR_CODE)
-//        codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
-//        codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
-//        codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
-//        codeScanner.isFlashEnabled = false // Whether to enable flash or not
-//
-//        // Callbacks
-//        codeScanner.decodeCallback = DecodeCallback {
-//            runOnUiThread {
-////                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
-//                actionListener.optionChosen(it.text,"")
-//                finish()
-//            }
-//        }
-//        codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
-//            runOnUiThread {
-//                Toast.makeText(this, "Camera initialization error: ${it.message}",
-//                    Toast.LENGTH_LONG).show()
-//            }
-//        }
-//
-//        scannerView.setOnClickListener {
-//            codeScanner.startPreview()
-//        }
         startCamera()
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        codeScanner.startPreview()
-//    }
-//
-//    override fun onPause() {
-//        codeScanner.releaseResources()
-//        super.onPause()
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -101,8 +57,24 @@ class ScannerActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalGetImage::class) private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
         cameraProviderFuture.addListener(Runnable {
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val cameraProvider: ProcessCameraProvider
+            try {
+                cameraProvider = cameraProviderFuture.get()
+            } catch (e: Exception) {
+                Log.e("CameraError", "Failed to get camera provider: ${e.message}")
+                Toast.makeText(this, "Failed to initialize camera.", Toast.LENGTH_SHORT).show()
+                return@Runnable
+            }
+//            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val pm = packageManager
+            if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                Toast.makeText(this, "No camera available on this device.", Toast.LENGTH_SHORT).show()
+                return@Runnable
+            }
+
+
             val preview = Preview.Builder().build().also {
                 it.setSurfaceProvider(scannerView.surfaceProvider)
             }
@@ -147,8 +119,7 @@ class ScannerActivity : AppCompatActivity() {
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalysis
-                )
+                    this, cameraSelector, preview, imageAnalysis)
             } catch (exc: Exception) {
                 // Handle exceptions
             }

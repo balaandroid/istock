@@ -1,15 +1,22 @@
 package com.fertail.istock
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fertail.istock.databinding.ActivityQrscanningDetailBinding
+import com.fertail.istock.googleMap.GoogleMapActivity
 import com.fertail.istock.model.AssetCondition
 import com.fertail.istock.model.AssetImages
 import com.fertail.istock.model.GetAllMasterDataResponse
@@ -18,6 +25,13 @@ import com.fertail.istock.ui.dataclass.CustomAdapter
 import com.fertail.istock.util.CommonUtils
 import com.fertail.istock.view_model.FileUploadViewModel
 import com.fertail.istock.view_model.GetAllMasterViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +49,10 @@ class QRScanningDetailActivity :BaseActivity(){
     lateinit var locationManager: LocationManager
     lateinit var viewModel: GetAllMasterViewModel
     lateinit var fileUploadViewModel: FileUploadViewModel
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var currentLocation: Location? = null
+    private var currentLatitude: Double = 0.0
+    private var currentLongitude: Double = 0.0
 
     companion object {
         var mPVData = PVData()
@@ -52,7 +70,7 @@ class QRScanningDetailActivity :BaseActivity(){
         fileUploadViewModel = ViewModelProvider(this)[FileUploadViewModel::class.java]
         EventBus.getDefault().register(this)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
+        getLocation()
         context = this
 
         correctData()
@@ -127,8 +145,6 @@ class QRScanningDetailActivity :BaseActivity(){
         val rankData=mPVData.assetCondition.rank ?: ""
         binding.txtAssetCondiHeading.text= "ASSET CONDITION -> Ranking ( $rankData ) "
 
-
-
         if(mPVData.assetImages.namePlateText!=null){
             mPVData.assetImages.namePlateText!!.forEach {
                 if (binding.namePlateOneTvValue.text.toString().isEmpty()) {
@@ -151,6 +167,27 @@ class QRScanningDetailActivity :BaseActivity(){
 
         binding.imgBack.setOnClickListener {
             saveDataAndFinish()
+        }
+
+
+        binding.locationIcon.setOnClickListener {
+            val startLat = currentLatitude // San Francisco latitude
+            val startLong = currentLongitude// San Francisco longitude
+            val destLat =mPVData.gIS.lattitudeStart?: ""// Los Angeles latitude
+            val destLong =mPVData.gIS.longitudeStart?: "" // Los Angeles longitude
+
+            val uri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$startLat,$startLong&destination=$destLat,$destLong&travelmode=transit")
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            intent.setPackage("com.google.android.apps.maps")
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                // If Google Maps is not installed, open the URL in a web browser
+                val webIntent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(webIntent)
+            }
+
         }
 
     }
@@ -302,6 +339,37 @@ class QRScanningDetailActivity :BaseActivity(){
 
             }
 
+        }
+    }
+
+    private fun getLocation() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), GoogleMapActivity.REQUEST_CODE
+            )
+        } else {
+            val task: Task<Location> = fusedLocationProviderClient.lastLocation
+            task.addOnSuccessListener(OnSuccessListener { location ->
+                Log.d("SAMPLECLASS", "BEFORE: $location")
+                if (location != null) {
+                    Log.d("SAMPLECLASS", "onSuccess: $location")
+                    currentLocation = location
+                    currentLatitude=currentLocation!!.latitude
+                    currentLongitude=currentLocation!!.longitude
+                    Toast.makeText(applicationContext, "${currentLocation!!.latitude} ${currentLocation!!.longitude}", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 

@@ -2,10 +2,11 @@ package com.fertail.istock
 
 import android.app.Application
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import androidx.core.app.ActivityCompat.startActivityForResult
+import android.net.Uri
 import com.fertail.istock.database.BOMListModel
 import com.fertail.istock.database.PVDataCompletedModel
 import com.fertail.istock.database.PVDataModel
@@ -14,8 +15,9 @@ import com.fertail.istock.internetChecking.NetworkChangeReceiver
 import com.fertail.istock.model.BOMModel
 import com.fertail.istock.model.PVData
 import com.google.gson.Gson
-import dagger.hilt.android.AndroidEntryPoint
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.HiltAndroidApp
+import jxl.write.WritableSheet
 import org.greenrobot.eventbus.EventBus
 
 
@@ -84,6 +86,33 @@ class iStockApplication : Application() {
 
         }
 
+//        fun saveWorkbookUriList(context: Context, uriList: List<Uri>) {
+//            val sharedPreferences = context.getSharedPreferences("WorkbookPrefs", Context.MODE_PRIVATE)
+//            val editor = sharedPreferences.edit()
+//
+//            val uriStringList = uriList.map { it.toString() }
+//            editor.putStringSet("workbook_uris", uriStringList.toSet())
+//            editor.apply()
+//        }
+
+
+        fun saveWorkbookUriList(context: Context,arrayList: MutableList<Uri>) {
+            val sharedPreferences = context.getSharedPreferences("WorkbookPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            val gson = Gson()
+            val json = gson.toJson(arrayList)
+            editor.putString("workbook_uris", json)
+            editor.apply()
+        }
+
+        fun getWorkbookUriList(context: Context): List<Uri> {
+            val sharedPreferences = context.getSharedPreferences("WorkbookPrefs", Context.MODE_PRIVATE)
+            val uriStringSet = sharedPreferences.getStringSet("workbook_uris", emptySet()) ?: emptySet()
+            return uriStringSet.map { Uri.parse(it) }
+        }
+
+
+
         fun saveNonCompletedItem(data: PVData){
             var pos = -1
             for (i in 0 until pvDataModel.data.size) {
@@ -104,7 +133,6 @@ class iStockApplication : Application() {
 
         fun saveCompletedItem(data: PVData) {
             var pos = -1
-
             for (i in 0 until pvDataCompletedModel.data.size) {
                 if (pvDataCompletedModel.data[i].assetNo == data.assetNo) {
                     pos = i
@@ -141,6 +169,34 @@ class iStockApplication : Application() {
 
 
         }
+
+
+        fun saveExcelListToLocalStorage(context: Context, excelList: ArrayList<WritableSheet>) {
+            // Convert list to JSON
+            val gson = Gson()
+            val json = gson.toJson(excelList)
+
+            // Save JSON to SharedPreferences
+            val sharedPref = context.getSharedPreferences("excel_data", Context.MODE_PRIVATE)
+            with(sharedPref.edit()) {
+                putString("excel_list", json)
+                apply()
+            }
+        }
+
+
+        fun retrieveExcelListFromLocalStorage(context: Context): ArrayList<WritableSheet> {
+            val sharedPref = context.getSharedPreferences("excel_data", Context.MODE_PRIVATE)
+            val json = sharedPref.getString("excel_list", null)
+
+            val gson = Gson()
+            val type = object : TypeToken<ArrayList<WritableSheet>>() {}.type
+
+            return gson.fromJson(json, type) ?: ArrayList()
+        }
+
+
+
 
         @Synchronized
         fun getInstance(): iStockApplication {

@@ -6,6 +6,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.*
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,6 +15,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.media.MediaMetadataRetriever
 import android.media.ThumbnailUtils
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +32,8 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.ObservableChar
@@ -38,6 +42,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fertail.istock.databinding.ActivityVerificationDetailsMobileBinding
+import com.fertail.istock.googleMap.GoogleMapActivity
 import com.fertail.istock.model.*
 import com.fertail.istock.ui.LocationConverter
 import com.fertail.istock.ui.ScannerActivity
@@ -54,9 +59,18 @@ import com.fertail.istock.ui.verification.itemClicked
 import com.fertail.istock.util.CommonUtils
 import com.fertail.istock.util.CustomSpinnerAdapter
 import com.fertail.istock.util.NetworkUtils
+import com.fertail.istock.util.SessionManager
 import com.fertail.istock.view_model.*
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mlkit.vision.common.InputImage
@@ -70,6 +84,14 @@ import com.gun0912.tedpermission.normal.TedPermission
 import com.journeyapps.barcodescanner.CaptureActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
+import jxl.Workbook
+import jxl.format.Colour
+import jxl.write.Label
+import jxl.write.WritableCell
+import jxl.write.WritableCellFormat
+import jxl.write.WritableFont
+import jxl.write.WritableSheet
+import jxl.write.WritableWorkbook
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -80,6 +102,8 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
@@ -105,6 +129,8 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
     private var currentLocation: Location? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var uri: Uri? = null
+    private val uriArrayList=ArrayList<Uri>()
+    private lateinit var session: SessionManager
 
 
     val options = arrayOf("Yes", "No")
@@ -274,12 +300,24 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
     var isneedtoSave = true
 
     companion object {
-         var mPVData = PVData()
+        var mPVData = PVData()
         fun start(caller: Context, data: PVData) {
             val intent = Intent(caller, VerificationDetailsMobileActivity::class.java)
             mPVData = data
             caller.startActivity(intent)
         }
+        val headers = listOf(
+            "Description", "Far Id", "Site Id", "Asset Number", " Tar Asset Conditions", "Tar Description", "Parent", "Location",
+            "Location Hierarchy", "Classification Hierarchy", "Status", "Asset Type", "Report Group", "Serial Number", "Model Number", "Model Year",
+            "Manufacturer", "Asset Images", "AssetMaxim Image", "NamePlate1 Image", "NamePlate1 Text", "NamePlate2 Image",
+            "NamePlate2 Text", "PV Remark", "Rework Remark", "Latitude", "Longitude", "OldTag Image",
+            "OldTag Barcode", "NewTag Image","NewTag Barcode","Asset Availability","Present Location",
+            "Existing Barcode","Barcode Number","Additional Notes","Owned By","Operated By","Maintained By",
+            "Corrosion","Damage","Leakage","Vibration","Temperature","Smell","Noise","Remark","Corrosion Image",
+            "Damage Image","Leakage Image","Temperature Image"
+
+        )
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -289,8 +327,9 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         viewModel = ViewModelProvider(this)[GetAllMasterViewModel::class.java]
         fileUploadViewModel = ViewModelProvider(this)[FileUploadViewModel::class.java]
 
-        locationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        session= SessionManager(this)
 
         context = this
 
@@ -350,7 +389,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 binding.idExistingBarCodeSpinner.performClick()
             }
         }
-     binding.IdAsscond.setOnClickListener {
+        binding.IdAsscond.setOnClickListener {
             binding.idAssetConditionsSpinner.post {
                 idExistingAssetSpinnerSelected = true
                 binding.idAssetConditionsSpinner.performClick()
@@ -473,10 +512,10 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         }
 
 
-        binding.IdAsscond.setText(mPVData.assCondition)
-        binding.idAssetAvailability.setText(mPVData.availabilityofAsset)
+        binding.IdAsscond.text = mPVData.assCondition
+        binding.idAssetAvailability.text = mPVData.availabilityofAsset
         binding.idCurrentLocation.setText(mPVData.presentLocation)
-        binding.idExistingBarCode.setText(mPVData.existingBarCode)
+        binding.idExistingBarCode.text = mPVData.existingBarCode
         binding.idBarCodeNumber.setText(mPVData.barcodeNumber)
         binding.idNoOfContract.setText(mPVData.noOfContract)
         binding.idNoOfAssetmaximo.setText(mPVData.nosOfAsestMaximo)
@@ -645,19 +684,11 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         }
 
 
-        // location
-
         binding.latitudeValue.setText(mPVData.gIS?.lattitudeStart)
         binding.longitudeValue.setText(mPVData.gIS?.longitudeStart)
-        binding.latitudeTwoValue.setText(mPVData.gIS?.lattitudeEnd)
-        binding.longitudeTwoValue.setText(mPVData.gIS?.longitudeEnd)
+
         binding.remark.setText(mPVData.assetConditionRemarks)
         binding.idModelNo.setText(mPVData.modelNo)
-//        binding.idEquipModelNo.setText(mPVData.equipment.modelno)
-//        binding.idEquipManufacture.setText(mPVData.equipment.manufacturer)
-//        binding.idEquipTagNo.setText(mPVData.equipment.tagno)
-//        binding.idSerialNo.setText(mPVData.equipment.serialno)
-//        binding.idEquipAdditionalInfo.setText(mPVData.equipment.additionalinfo)
         binding.idNoune.setText(mPVData.noun)
         binding.idModifier.setText(mPVData.modifier)
 
@@ -667,8 +698,6 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
         binding.latitudeValue.addTextChangedListener(MyTextWatcher("lat1"))
         binding.longitudeValue.addTextChangedListener(MyTextWatcher("lan1"))
-        binding.latitudeTwoValue.addTextChangedListener(MyTextWatcher("lat2"))
-        binding.longitudeTwoValue.addTextChangedListener(MyTextWatcher("lan2"))
         binding.descriptionedt.addTextChangedListener(MyTextWatcher("descriptionedt"))
         binding.idRemark.addTextChangedListener(MyTextWatcher("idRemark"))
         binding.remark.addTextChangedListener(MyTextWatcher("remark"))
@@ -780,6 +809,12 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
             binding.newTagId.text = ""
             mPVData.newTagNo = ""
 
+        }
+
+
+        binding.locationClear.setOnClickListener {
+            binding.longitudeValue.setText("")
+            binding.latitudeValue.setText("")
         }
 
 
@@ -910,7 +945,6 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
 
         binding.newTagScanner.setOnClickListener {
-
             TedPermission.create()
                 .setPermissionListener(object : PermissionListener {
                     override fun onPermissionGranted() {
@@ -1048,40 +1082,20 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
         binding.locationIcon.setOnClickListener {
             if (currentLocation != null) {
-                binding.latitudeValue.setText(LocationConverter.getLatitudeAsDMS(currentLocation, 3))
-                binding.longitudeValue.setText(LocationConverter.getLongitudeAsDMS(currentLocation, 3))
+                // Update UI with location data
+                binding.latitudeValue.setText(LocationConverter.getLongitudeAsDMS(currentLocation, 3))
+                binding.longitudeValue.setText(LocationConverter.getLatitudeAsDMS(currentLocation, 3))
             } else {
-                CommonUtils.showAlert(
-                    this,
-                    "Location data not available now, try after some time!!")
+                val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                binding.latitudeValue.setText(LocationConverter.getLongitudeAsDMS(location, 3))
+                binding.longitudeValue.setText(LocationConverter.getLatitudeAsDMS(location, 3))
+                Toast.makeText(this,"Location Updated Successfully",Toast.LENGTH_SHORT).show()
+
             }
         }
 
-        binding.locationTwoIcon.setOnClickListener {
-            if (currentLocation != null) {
-                binding.latitudeTwoValue.setText(
-                    LocationConverter.getLatitudeAsDMS(
-                        currentLocation,
-                        3
-                    )
-                )
-                binding.longitudeTwoValue.setText(
-                    LocationConverter.getLongitudeAsDMS(
-                        currentLocation,
-                        3
-                    )
-                )
-            } else {
-                CommonUtils.showAlert(
-                    this,
-                    "Location data not available now, try after some time!!"
-                )
-            }
-        }
 
         binding.idNoune.setOnClickListener {
-
-
             val tempList: List<AttributesItem> =
                 mPVData.characteristics.filter { s -> s.definition != null }
 
@@ -1139,18 +1153,18 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
                 var modalBottomSheet: ChooseModifierBottomsheet? = null
                 modalBottomSheet = ChooseModifierBottomsheet("Modifier", tempList, object : ItemSelectedForNoune {
-                        override fun selectedItem(noun: String) {
-                            mPVData.modifier = noun
-                            binding.idModifier.setText(noun)
-                            modalBottomSheet?.dismiss()
+                    override fun selectedItem(noun: String) {
+                        mPVData.modifier = noun
+                        binding.idModifier.setText(noun)
+                        modalBottomSheet?.dismiss()
 
-                            getNounViewModel.getAttributes(
-                                mPVData.noun ?: "",
-                                mPVData.modifier ?: ""
-                            )
+                        getNounViewModel.getAttributes(
+                            mPVData.noun ?: "",
+                            mPVData.modifier ?: ""
+                        )
 
-                        }
-                    })
+                    }
+                })
 
                 modalBottomSheet?.show(
                     supportFragmentManager,
@@ -1189,6 +1203,10 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         }
 
     }
+
+
+
+
 
     private fun saveDataToLocal() {
         if (mPVData.assetImages.assetImage.isNullOrEmpty()) {
@@ -1253,14 +1271,13 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
             this,
             "Item Saved successfully in local database",
             object : CommonInterface {
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun btnPositiveSelected(dialog: DialogInterface) {
 
                     val gson = Gson()
                     val myType = object : TypeToken<UserDetailsResponse>() {}.type
                     val userDetailsResponse = gson.fromJson<UserDetailsResponse>(
-                        iStockApplication.appPreference.KEY_USER_DETAILS,
-                        myType
-                    )
+                        iStockApplication.appPreference.KEY_USER_DETAILS, myType)
 
 
                     val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
@@ -1289,6 +1306,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
                     iStockApplication.saveData(iStockApplication.pvDataModel.data)
                     iStockApplication.saveCompletedItem(mPVData)
+                    createExcelSheetEquipment(mPVData)
                     isneedtoSave = false
                     dialog.dismiss()
                     finish()
@@ -1300,6 +1318,214 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 }
             })
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createExcelSheetEquipment(vararg mPVData: PVData) {
+        try {
+            val today = LocalDate.now()
+            val fileName = "Equipment${today.format(DateTimeFormatter.ofPattern("yyyyMMdd"))}.xls"
+
+            val filePath = fileName
+            val file = File(this.getExternalFilesDir(null), filePath)
+
+            val workbook: WritableWorkbook
+            val sheet: WritableSheet
+
+            if (file.exists()) {
+                workbook = Workbook.createWorkbook(file, Workbook.getWorkbook(file))
+                sheet = workbook.getSheet(0)
+            } else {
+                // Create new workbook and sheet
+                workbook = Workbook.createWorkbook(file)
+                sheet = workbook.createSheet("Equipment Sheet", 0)
+
+                val headerFont = WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD)
+                val headerFormat = WritableCellFormat(headerFont)
+                headerFormat.setBackground(Colour.GRAY_25)
+
+                for ((index, header) in headers.withIndex()) {
+                    sheet.addCell(Label(index, 0, header, headerFormat))
+                }
+            }
+
+            val dataFont = WritableFont(WritableFont.ARIAL, 10)
+            val dataFormat = WritableCellFormat(dataFont)
+
+
+            for (data in mPVData) {
+                var row = -1
+
+                for (rowIndex in 1 until sheet.rows) {
+                    val cell: WritableCell = sheet.getWritableCell(0, rowIndex)
+                    if (cell.contents == data.itemcode) {
+                        row = rowIndex
+                        break
+                    }
+                }
+
+                // If no matching row is found, add a new row
+                if (row == -1) {
+                    row = sheet.rows
+                }
+
+                if (data.characteristics.isNotEmpty()) {
+                    for (data1 in data.characteristics) {
+                        sheet.addCell(Label(0, row, data.equipmentDesc, dataFormat))
+                        sheet.addCell(Label(1, row, data.fixedAssetNo, dataFormat))
+                        sheet.addCell(Label(2, row, data.siteId, dataFormat))
+                        sheet.addCell(Label(3, row, data.assetNo, dataFormat))
+                        sheet.addCell(Label(4, row, data.assCondition, dataFormat))
+                        sheet.addCell(Label(5, row, data.equipmentDesc, dataFormat))
+                        sheet.addCell(Label(6, row, data.parent, dataFormat))
+                        sheet.addCell(Label(7, row, data.location, dataFormat))
+                        sheet.addCell(Label(8, row, data.locationHierarchy, dataFormat))
+                        sheet.addCell(Label(9, row, data.classificationHierarchyDesc, dataFormat))
+                        sheet.addCell(Label(10, row, data.status, dataFormat))
+                        sheet.addCell(Label(11, row, data.assetType, dataFormat))
+                        sheet.addCell(Label(12, row, data.reportGroup, dataFormat))
+                        sheet.addCell(Label(13, row, data.serialNo, dataFormat))
+                        sheet.addCell(Label(14, row, data.modelNo, dataFormat))
+                        sheet.addCell(Label(15, row, data.modelYear, dataFormat))
+                        sheet.addCell(Label(16, row, data.manufacture, dataFormat))
+                        sheet.addCell(Label(17, row, data.assetImages.assetImage.toString(), dataFormat))
+                        sheet.addCell(Label(18, row, data.assetImages.matImgs.toString(), dataFormat))
+                        sheet.addCell(Label(19, row, data.assetImages.namePlateImge.toString(), dataFormat))
+                        val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+                        val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+                        sheet.addCell(Label(20, row,normalText, dataFormat))
+                        sheet.addCell(Label(21, row, data.assetImages.namePlateImgeTwo.toString(), dataFormat))
+                        val step2 = data.assetImages.namePlateTextTwo.toString().replace("\n", " ")
+                        val normalText2 = step2.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+                        sheet.addCell(Label(22, row, normalText2, dataFormat))
+                        sheet.addCell(Label(23, row, data.remarks, dataFormat))
+                        sheet.addCell(Label(24, row, data.mReworkRemarks, dataFormat))
+                        sheet.addCell(Label(25, row, data.gIS.longitudeStart, dataFormat))
+                        sheet.addCell(Label(26, row, data.gIS.lattitudeStart, dataFormat))
+                        sheet.addCell(Label(27, row, data.assetImages.oldTagImage.toString(), dataFormat))
+                        sheet.addCell(Label(28, row, data.oldTagNo, dataFormat))
+                        sheet.addCell(Label(29, row, data.assetImages.newTagImage.toString(), dataFormat))
+                        sheet.addCell(Label(30, row, data.newTagNo, dataFormat))
+                        sheet.addCell(Label(31, row, data.availabilityofAsset, dataFormat))
+                        sheet.addCell(Label(32, row, data.presentLocation, dataFormat))
+                        sheet.addCell(Label(33, row, data.existingBarCode, dataFormat))
+                        sheet.addCell(Label(34, row, data.barcodeNumber, dataFormat))
+                        sheet.addCell(Label(35, row, data.remarks, dataFormat))
+                        sheet.addCell(Label(36, row, data.mOwnedBy, dataFormat))
+                        sheet.addCell(Label(37, row, data.mOperatedBy, dataFormat))
+                        sheet.addCell(Label(38, row, data.mMaintainer, dataFormat))
+                        sheet.addCell(Label(39, row, data.assetCondition.corrosion, dataFormat))
+                        sheet.addCell(Label(40, row, data.assetCondition.damage, dataFormat))
+                        sheet.addCell(Label(41, row, data.assetCondition.leakage, dataFormat))
+                        sheet.addCell(Label(42, row, data.assetCondition.vibration, dataFormat))
+                        sheet.addCell(Label(43, row, data.assetCondition.temparature, dataFormat))
+                        sheet.addCell(Label(44, row, data.assetCondition.smell, dataFormat))
+                        sheet.addCell(Label(45, row, data.assetCondition.noise, dataFormat))
+                        sheet.addCell(Label(46, row, data.assetConditionRemarks, dataFormat))
+                        sheet.addCell(Label(47, row, data.assetCondition.corrosionImage.toString(), dataFormat))
+                        sheet.addCell(Label(48, row, data.assetCondition.damageImage.toString(), dataFormat))
+                        sheet.addCell(Label(49, row, data.assetCondition.leakageImage.toString(), dataFormat))
+                        sheet.addCell(Label(50, row, data.assetCondition.temparatureImage.toString(), dataFormat))
+                        row++
+                    }
+                }else{
+                    sheet.addCell(Label(0, row, data.equipmentDesc, dataFormat))
+                    sheet.addCell(Label(1, row, data.fixedAssetNo, dataFormat))
+                    sheet.addCell(Label(2, row, data.siteId, dataFormat))
+                    sheet.addCell(Label(3, row, data.assetNo, dataFormat))
+                    sheet.addCell(Label(4, row, data.assCondition, dataFormat))
+                    sheet.addCell(Label(5, row, data.equipmentDesc, dataFormat))
+                    sheet.addCell(Label(6, row, data.parent, dataFormat))
+                    sheet.addCell(Label(7, row, data.location, dataFormat))
+                    sheet.addCell(Label(8, row, data.locationHierarchy, dataFormat))
+                    sheet.addCell(Label(9, row, data.classificationHierarchyDesc, dataFormat))
+                    sheet.addCell(Label(10, row, data.status, dataFormat))
+                    sheet.addCell(Label(11, row, data.assetType, dataFormat))
+                    sheet.addCell(Label(12, row, data.reportGroup, dataFormat))
+                    sheet.addCell(Label(13, row, data.serialNo, dataFormat))
+                    sheet.addCell(Label(14, row, data.modelNo, dataFormat))
+                    sheet.addCell(Label(15, row, data.modelYear, dataFormat))
+                    sheet.addCell(Label(16, row, data.manufacture, dataFormat))
+                    sheet.addCell(Label(17, row, data.assetImages.assetImage.toString(), dataFormat))
+                    sheet.addCell(Label(18, row, data.assetImages.matImgs.toString(), dataFormat))
+                    sheet.addCell(Label(19, row, data.assetImages.namePlateImge.toString(), dataFormat))
+                    val step1 = data.assetImages.namePlateText.toString().replace("\n", " ")
+                    val normalText = step1.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+                    sheet.addCell(Label(20, row,normalText, dataFormat))
+                    sheet.addCell(Label(21, row, data.assetImages.namePlateImgeTwo.toString(), dataFormat))
+                    val step2 = data.assetImages.namePlateTextTwo.toString().replace("\n", " ")
+                    val normalText2 = step2.replace(Regex("\\(.*?\\)|F[0-9]+|Caps Lock|Shift|Ctrd|Fn|\\["), "")
+                    sheet.addCell(Label(22, row, normalText2, dataFormat))
+                    sheet.addCell(Label(23, row, data.remarks, dataFormat))
+                    sheet.addCell(Label(24, row, data.mReworkRemarks, dataFormat))
+                    sheet.addCell(Label(25, row, data.gIS.longitudeStart, dataFormat))
+                    sheet.addCell(Label(26, row, data.gIS.lattitudeStart, dataFormat))
+                    sheet.addCell(Label(27, row, data.assetImages.oldTagImage.toString(), dataFormat))
+                    sheet.addCell(Label(28, row, data.oldTagNo, dataFormat))
+                    sheet.addCell(Label(29, row, data.assetImages.newTagImage.toString(), dataFormat))
+                    sheet.addCell(Label(30, row, data.newTagNo, dataFormat))
+                    sheet.addCell(Label(31, row, data.availabilityofAsset, dataFormat))
+                    sheet.addCell(Label(32, row, data.presentLocation, dataFormat))
+                    sheet.addCell(Label(33, row, data.existingBarCode, dataFormat))
+                    sheet.addCell(Label(34, row, data.barcodeNumber, dataFormat))
+                    sheet.addCell(Label(35, row, data.remarks, dataFormat))
+                    sheet.addCell(Label(36, row, data.mOwnedBy, dataFormat))
+                    sheet.addCell(Label(37, row, data.mOperatedBy, dataFormat))
+                    sheet.addCell(Label(38, row, data.mMaintainer, dataFormat))
+                    sheet.addCell(Label(39, row, data.assetCondition.corrosion, dataFormat))
+                    sheet.addCell(Label(40, row, data.assetCondition.damage, dataFormat))
+                    sheet.addCell(Label(41, row, data.assetCondition.leakage, dataFormat))
+                    sheet.addCell(Label(42, row, data.assetCondition.vibration, dataFormat))
+                    sheet.addCell(Label(43, row, data.assetCondition.temparature, dataFormat))
+                    sheet.addCell(Label(44, row, data.assetCondition.smell, dataFormat))
+                    sheet.addCell(Label(45, row, data.assetCondition.noise, dataFormat))
+                    sheet.addCell(Label(46, row, data.assetConditionRemarks, dataFormat))
+                    sheet.addCell(Label(47, row, data.assetCondition.corrosionImage.toString(), dataFormat))
+                    sheet.addCell(Label(48, row, data.assetCondition.damageImage.toString(), dataFormat))
+                    sheet.addCell(Label(49, row, data.assetCondition.leakageImage.toString(), dataFormat))
+                    sheet.addCell(Label(50, row, data.assetCondition.temparatureImage.toString(), dataFormat))
+                    row++
+                }
+            }
+
+            for (col in headers.indices) {
+                sheet.setColumnView(col, getPreferredColumnWidth(sheet, col))
+            }
+
+            val contentUri = FileProvider.getUriForFile(this, "${this.packageName}.provider", file)
+            if (!uriArrayList.contains(contentUri)) {
+                uriArrayList.add(contentUri)
+            }
+
+            val uris = session.getUriArrayListEquipment("excel_equipment")
+            if (uris != null) {
+                if (!uris.contains(contentUri)) {
+                    uris.add(contentUri)
+                    session.setUriArrayListEquipment("excel_equipment", uris)
+                }
+            } else {
+                val newList = mutableListOf(contentUri)
+                session.setUriArrayListEquipment("excel_equipment", newList)
+            }
+
+            workbook.write()
+            workbook.close()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
+    private fun getPreferredColumnWidth(sheet: jxl.Sheet, col: Int): Int {
+        var maxWidth = 0
+        val numRows = sheet.rows
+        for (row in 0 until numRows) {
+            val cell = sheet.getCell(col, row)
+            val contentWidth = cell.contents.length * 256  // 1 character = 256 units
+            maxWidth = maxOf(maxWidth, contentWidth)
+        }
+        return (maxWidth / 256) + 1  // Convert back from units to characters and add a little extra padding
     }
 
     fun chooseGalleryOrCameraBottomSheet(open: String) {
@@ -1398,9 +1624,9 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
             )
         }
 
-
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(this)
+
 
         val lastKnownLocationByGps =
             locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -1414,20 +1640,22 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         }
     }
 
-    var locationListenerGPS: LocationListener = object : LocationListener {
+
+
+    private var locationListenerGPS: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-
             currentLocation = location
-
             val latitude = location.latitude
             val longitude = location.longitude
             val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
-//            Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
+
+
     }
 
     override fun onResume() {
@@ -1942,7 +2170,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 bitmap = mMMR.frameAtTime
             } else {
                 bitmap = ThumbnailUtils.createVideoThumbnail(
-                    picturePath!!,
+                    picturePath,
                     MediaStore.Images.Thumbnails.MINI_KIND
                 )
             }

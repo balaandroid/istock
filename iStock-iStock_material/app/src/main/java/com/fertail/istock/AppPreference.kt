@@ -2,6 +2,9 @@ package com.fertail.istock
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
+import com.fertail.istock.model.PVData
+import com.google.gson.Gson
 import javax.inject.Inject
 
 class AppPreference @Inject constructor(context: Context) {
@@ -10,7 +13,6 @@ class AppPreference @Inject constructor(context: Context) {
 
     companion object {
         private val PREFERENCE_NAME = "iStock_PREFERENCE"
-
         private val _KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN"
         private val _KEY_ACCESS_TOKEN_TYPE = "KEY_ACCESS_TOKEN_TYPE"
         private val _KEY_IS_LOGGED_IN = "KEY_IS_LOGGED_IN"
@@ -26,6 +28,9 @@ class AppPreference @Inject constructor(context: Context) {
         private val _KEY_SITE_MAster = "_KEY_SITE_MAster"
         private val _LocationHierarchy = "LocationHierarchy"
         private val _AssetTypeMaster = "AssetTypeMaster"
+
+
+
 
     }
 
@@ -62,6 +67,9 @@ class AppPreference @Inject constructor(context: Context) {
         get() {
             return preference.getString(_KEY_ACCESS_TOKEN, "")!!
         }
+
+
+
 
 
     var KEY_USER_ID: String
@@ -183,6 +191,14 @@ class AppPreference @Inject constructor(context: Context) {
         get() {
             return preference.getString(_AssetTypeMaster, "")!!
         }
+
+
+
+
+
+
+
+
 
     //*------------------------------------ Locale ---------------------------------------------------------------*//
 

@@ -31,7 +31,7 @@ class AttributesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         with(holder) {
-            with(mList.get(position)) {
+            with(mList[position]) {
                 binding.lefttext.text = this.characteristic
                 binding.rigttext.setText(this.definition)
 

@@ -1243,8 +1243,7 @@
                                 android:layout_margin="@dimen/_5sdp"
                                 android:orientation="vertical"
                                 android:visibility="gone"
-                                app:layout_constraintTop_toBottomOf="@+id/second_drop_down"
-                                tools:visibility="gone">
+                                app:layout_constraintTop_toBottomOf="@+id/second_drop_down">
 
 
                                 <LinearLayout

@@ -1640,7 +1640,7 @@
                                     android:layout_height="wrap_content"
                                     android:contentDescription="@string/nav_header_desc"
                                     android:fontFamily="@font/poppins_medium"
-                                    android:text="Image Remark"
+                                    android:text="PV Remarks"
                                     android:textColor="@color/side_menu_text_color"
                                     android:textSize="@dimen/_11ssp" />
 
@@ -1733,7 +1733,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/third_drop_down"
-                        tools:visibility="gone">
+                        tools:visibility="visible.">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -2984,22 +2984,7 @@
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
-                                <FrameLayout
-                                    android:id="@+id/location_icon"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center"
-                                    android:layout_margin="5dp"
-                                    android:background="@drawable/round_primary">
 
-                                    <ImageButton
-                                        android:layout_width="15dp"
-                                        android:layout_height="15dp"
-                                        android:layout_gravity="center"
-                                        android:background="@drawable/ic_location_icon"
-                                        android:clickable="false" />
-
-                                </FrameLayout>
 
                                 <LinearLayout
                                     android:layout_width="0dp"
@@ -3048,6 +3033,7 @@
                                         android:id="@+id/latitudeValue"
                                         style="@style/edittext_style_without_drawable"
                                         android:hint="@string/type_here"
+                                        android:focusable="false"
                                         android:inputType="textCapCharacters|textNoSuggestions"
                                         android:textColor="@color/text_photo_color" />
 
@@ -3055,88 +3041,38 @@
                                 </LinearLayout>
 
 
+                                <ImageView
+                                    android:id="@+id/locationClear"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_baseline_delete_24"
+                                    app:tint="@color/text_red" />
+
+
+
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:visibility="gone"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
 
-                                <FrameLayout
-                                    android:id="@+id/location_two_icon"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
+
+                            <FrameLayout
+                                android:id="@+id/location_icon"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/round_primary">
+
+                                <ImageButton
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
                                     android:layout_gravity="center"
-                                    android:layout_margin="5dp"
-                                    android:background="@drawable/round_primary">
+                                    android:background="@drawable/ic_location_icon"
+                                    android:clickable="false" />
 
-                                    <ImageButton
-                                        android:layout_width="15dp"
-                                        android:layout_height="15dp"
-                                        android:layout_gravity="center"
-                                        android:background="@drawable/ic_location_icon"
-                                        android:clickable="false" />
-
-                                </FrameLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical">
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:contentDescription="@string/nav_header_desc"
-                                        android:fontFamily="@font/poppins_medium"
-                                        android:text="@string/latitude"
-                                        android:textColor="@color/side_menu_text_color"
-                                        android:textSize="12sp" />
-
-                                    <EditText
-                                        android:id="@+id/longitude_two_Value"
-                                        style="@style/edittext_style_without_drawable"
-                                        android:hint="@string/type_here"
-                                        android:inputType="textCapCharacters|textNoSuggestions"
-                                        android:textColor="@color/text_photo_color" />
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical">
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:contentDescription="@string/nav_header_desc"
-                                        android:fontFamily="@font/poppins_medium"
-                                        android:text="@string/longitude"
-                                        android:textColor="@color/side_menu_text_color"
-                                        android:textSize="12sp" />
-
-
-                                    <EditText
-                                        android:id="@+id/latitudeTwoValue"
-                                        style="@style/edittext_style_without_drawable"
-                                        android:hint="@string/type_here"
-                                        android:inputType="textCapCharacters|textNoSuggestions"
-                                        android:textColor="@color/text_photo_color" />
-
-
-                                </LinearLayout>
-
-
-                            </LinearLayout>
+                            </FrameLayout>
 
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -3145,7 +3081,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/scanContainer">
+                                app:layout_constraintTop_toBottomOf="@+id/location_icon">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/constraintLayout2"
@@ -4061,7 +3997,7 @@
                                     android:layout_height="wrap_content"
                                     android:contentDescription="@string/nav_header_desc"
                                     android:fontFamily="@font/poppins_medium"
-                                    android:text="Remark Notes"
+                                    android:text="Additional Notes"
                                     android:textColor="@color/side_menu_text_color"
                                     android:textSize="@dimen/_11ssp" />
 

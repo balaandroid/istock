@@ -1,6 +1,7 @@
 package com.fertail.istock.ui.report
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.fertail.istock.AppPreference
+import com.fertail.istock.CompletedReportActivity
 import com.fertail.istock.DashboardActivity
 import com.fertail.istock.LoginActivity
 import com.fertail.istock.R
@@ -71,7 +73,9 @@ class ReportFragment  : BaseFragment() {
 
     private fun initViewClicks() {
         binding.container1.setOnClickListener {
-            it.findNavController().navigate(R.id.action_nav_report_list)
+            val intent = Intent(context, CompletedReportActivity::class.java)
+            startActivity(intent)
+//            it.findNavController().navigate(R.id.action_nav_report_list)
         }
 
         binding.container2.setOnClickListener {

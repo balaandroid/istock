@@ -138,8 +138,7 @@ class ReportListFragment : BaseFragment(), ReportClickListener {
             isMaterialSelected = true
             initRecyclerView(data)
             if (!binding.toolbarReportList.idSelect.text.toString()
-                    .equals(resources.getString(R.string.select))
-            ) {
+                    .equals(resources.getString(R.string.select))) {
                 binding.toolbarReportList.idSelect.post {
                     binding.toolbarReportList.idSelect.performClick()
                 }
