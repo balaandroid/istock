@@ -196,6 +196,47 @@
                 android:background="@color/line_color"
                 app:layout_constraintTop_toBottomOf="@+id/conatner2" />
 
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/serial_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Serial Number :  "
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:textColor="@color/text__dark_gray_color"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/serialNo_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins"
+                android:singleLine="true"
+                android:text=" P0GCC32AN001"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/serial_no"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+
+
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/serial_no" />
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/conatner4"
                 android:layout_width="match_parent"
@@ -209,7 +250,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
                 tools:visibility="visible">
 
                 <ImageButton

@@ -15,11 +15,12 @@ class iStockService {
 //    private val BASE_URL = "http://scm.codasol.net/"
 //    private val BASE_URL = "https://qcm.prosolonline.com/"
 //    private val BASE_URL = "https://acb.prosolonline.com/"
+//    private val BASE_URL = "https://admin.prosolonline.com/"
     private val BASE_URL = "https://adportsgroup.prosolonline.com/"
 
-//    private val BASE_URL_WCB = "https://wcb.prosolonline.com/";
-    private val BASE_URL_WCB = "https://adportsgroup.prosolonline.com/";
-//    private val BASE_URL = "https://testing.prosolonline.com/";
+//    private val BASE_URL_WCB = "https://wcb.prosolonline.com/"
+    private val BASE_URL_WCB = "https://adportsgroup.prosolonline.com/"
+//    private val BASE_URL = "https://testing.prosolonline.com/"
     fun getUsersService(): iStockApi{
 
         val interceptor = HttpLoggingInterceptor()

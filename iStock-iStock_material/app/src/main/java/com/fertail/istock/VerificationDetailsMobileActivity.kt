@@ -60,6 +60,7 @@ import com.fertail.istock.util.CommonUtils
 import com.fertail.istock.util.CustomSpinnerAdapter
 import com.fertail.istock.util.NetworkUtils
 import com.fertail.istock.util.SessionManager
+import com.fertail.istock.util.UriWithDate
 import com.fertail.istock.view_model.*
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -1405,7 +1406,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                         sheet.addCell(Label(27, row, data.assetImages.oldTagImage.toString(), dataFormat))
                         sheet.addCell(Label(28, row, data.oldTagNo, dataFormat))
                         sheet.addCell(Label(29, row, data.assetImages.newTagImage.toString(), dataFormat))
-                        sheet.addCell(Label(30, row, data.newTagNo, dataFormat))
+                        sheet.addCell(Label(30, row, data .newTagNo, dataFormat))
                         sheet.addCell(Label(31, row, data.availabilityofAsset, dataFormat))
                         sheet.addCell(Label(32, row, data.presentLocation, dataFormat))
                         sheet.addCell(Label(33, row, data.existingBarCode, dataFormat))
@@ -1497,15 +1498,29 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 uriArrayList.add(contentUri)
             }
 
-            val uris = session.getUriArrayListEquipment("excel_equipment")
+//            val uris = session.getUriArrayListEquipment("excel_equipment")
+//            if (uris != null) {
+//                if (!uris.contains(contentUri)) {
+//                    uris.add(contentUri)
+//                    session.setUriArrayListEquipment("excel_equipment", uris)
+//                }
+//            } else {
+//                val newList = mutableListOf(contentUri)
+//                session.setUriArrayListEquipment("excel_equipment", newList)
+//            }
+
+
+            val date = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
+            val uris = session.getUriArrayListEquipmentNew("excel_equipment")
+
             if (uris != null) {
-                if (!uris.contains(contentUri)) {
-                    uris.add(contentUri)
-                    session.setUriArrayListEquipment("excel_equipment", uris)
+                if (uris.none { it.uri == contentUri.toString() }) {
+                    uris.add(UriWithDate(contentUri.toString(), date))
+                    session.setUriArrayListEquipmentNew("excel_equipment", uris)
                 }
-            } else {
-                val newList = mutableListOf(contentUri)
-                session.setUriArrayListEquipment("excel_equipment", newList)
+            }else{
+                val newList = mutableListOf(UriWithDate(contentUri.toString(), date))
+                session.setUriArrayListEquipmentNew("excel_equipment", newList)
             }
 
             workbook.write()

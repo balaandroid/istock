@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.fertail.istock.util.UriWithDate
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class ExcelReportEquipmentAdapter(var context:Context, var list: ArrayList<Uri>, var onClick:(position:Int)->Unit):RecyclerView.Adapter<ExcelReportEquipmentAdapter.ViewHolder>() {
+class ExcelReportEquipmentAdapter(var context:Context, var list:MutableList<UriWithDate>, var onClick:(position:Int)->Unit):RecyclerView.Adapter<ExcelReportEquipmentAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val heading = itemView.findViewById<TextView>(R.id.txt_heading)
@@ -30,8 +31,9 @@ class ExcelReportEquipmentAdapter(var context:Context, var list: ArrayList<Uri>,
 
     override fun onBindViewHolder(holder: ExcelReportEquipmentAdapter.ViewHolder, position: Int) {
         holder.apply {
-            val currentDateTimeList = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-            heading.text= "Equipment data $currentDateTimeList"
+            val data=list[position]
+//            val currentDateTimeList = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+            heading.text= "Equipment data ${data.date}"
 
             download.setOnClickListener {
                 onClick(position)
@@ -44,7 +46,7 @@ class ExcelReportEquipmentAdapter(var context:Context, var list: ArrayList<Uri>,
         return list.size
     }
 
-    fun updateList(newItems: ArrayList<Uri>) {
+    fun updateList(newItems:MutableList<UriWithDate>) {
         list.clear()
         list = newItems
         notifyDataSetChanged()

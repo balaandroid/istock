@@ -27,6 +27,7 @@ class VerificationReportLatestAdapter(
                 binding.ideqpno.text = this.assetNo
                 binding.oldTagNoValue.text = this.oldTagNo
                 binding.idDescriptionContent.text = this.equipmentDesc
+                binding.serialNoTxt!!.text=this.serialNo
 
                 if (this.rework?.equals("PV") == true){
                     binding.baseCardview.setCardBackgroundColor(Color.parseColor("#3BF82F2F"))

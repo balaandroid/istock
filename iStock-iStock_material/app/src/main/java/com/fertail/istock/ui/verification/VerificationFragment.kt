@@ -186,7 +186,8 @@ class VerificationFragment : BaseFragment(), ReportClickListener {
                                     || s.oldTagNo?.contains(p0, true) == true
                                     || s.equipmentDesc?.contains(p0,true)==true
                                     || s.stroageBin?.contains(p0,true)==true
-                                    || s.stroageLocation?.contains(p0,true)==true)
+                                    || s.stroageLocation?.contains(p0,true)==true
+                                    || s.serialNo?.contains(p0,true)==true)
                         }
                         newItem.addAll(newItem1)
                         initRecyclerView(newItem)

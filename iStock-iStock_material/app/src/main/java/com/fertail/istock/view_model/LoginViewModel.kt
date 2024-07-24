@@ -7,13 +7,14 @@ import com.fertail.istock.model.LoginRequest
 import com.fertail.istock.model.LoginResponse
 import com.fertail.istock.model.UserDetailsResponse
 import kotlinx.coroutines.*
+import javax.net.ssl.SSLHandshakeException
 
 class LoginViewModel() : ViewModel() {
 
     val mIStockService = iStockService().getUsersService()
 
     var job: Job? = null
-    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+    val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         onError("Exception handled: ${throwable.localizedMessage}")
     }
     val loginResponse = MutableLiveData<LoginResponse>()
@@ -32,7 +33,6 @@ class LoginViewModel() : ViewModel() {
                 } else {
                     onError("Error : ${response.message()} ")
                 }
-
             }
         }
     }

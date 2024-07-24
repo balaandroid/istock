@@ -2,13 +2,11 @@ package com.fertail.istock
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -21,14 +19,11 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -54,6 +49,7 @@ import com.fertail.istock.util.CommonUtils
 import com.fertail.istock.util.GenericRecyclerAdapter
 import com.fertail.istock.util.NetworkUtils
 import com.fertail.istock.util.SessionManager
+import com.fertail.istock.util.UriWithDate
 import com.fertail.istock.view_model.FileUploadViewModel
 import com.fertail.istock.view_model.GetAllMasterViewModel
 import com.fertail.istock.view_model.GetNounViewModel
@@ -1157,14 +1153,6 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     }
 
 
-    private fun showDropdownDialog(items: Array<String>, onItemSelected: (String) -> Unit) {
-        val builder = AlertDialog.Builder(this)
-        builder.setItems(items) { dialog, which ->
-            onItemSelected(items[which])
-        }
-        builder.show()
-    }
-
     private fun updateObseData() {
         if (mPVData.observations.isEmpty()) {
             val attributesItem = Observations()
@@ -1375,17 +1363,28 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                 uriArrayList.add(contentUri)
             }
 
-//            uriArrayList.add(contentUri)
+//            val uris = session.getUriArrayList("excel_material")
+//            if (uris != null) {
+//                if (!uris.contains(contentUri)) {
+//                    uris.add(contentUri)
+//                    session.setUriArrayListNew("excel_material", uris)
+//                }
+//            } else {
+//                val newList = mutableListOf(contentUri)
+//                session.setUriArrayListNew("excel_material", newList)
+//            }
 
-            val uris = session.getUriArrayList("excel_material")
+            val date = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
+            val uris = session.getUriArrayListNew("excel_material")
+
             if (uris != null) {
-                if (!uris.contains(contentUri)) {
-                    uris.add(contentUri)
-                    session.setUriArrayList("excel_material", uris)
+                if (uris.none { it.uri == contentUri.toString() }) {
+                    uris.add(UriWithDate(contentUri.toString(), date))
+                    session.setUriArrayListNew("excel_material", uris)
                 }
-            } else {
-                val newList = mutableListOf(contentUri)
-                session.setUriArrayList("excel_material", newList)
+            }else{
+                val newList = mutableListOf(UriWithDate(contentUri.toString(), date))
+                session.setUriArrayListNew("excel_material", newList)
             }
 
             workbook.write()
