@@ -2,12 +2,9 @@ package com.fertail.istock.api
 
 import com.fertail.istock.iStockApplication
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
 class iStockService {
 
 //    private val BASE_URL = "https://mdm.prosolonline.com/"
@@ -16,11 +13,23 @@ class iStockService {
 //    private val BASE_URL = "https://qcm.prosolonline.com/"
 //    private val BASE_URL = "https://acb.prosolonline.com/"
 //    private val BASE_URL = "https://admin.prosolonline.com/"
-    private val BASE_URL = "https://adportsgroup.prosolonline.com/"
+    private var BASE_URL =  "https://adportsgroup.prosolonline.com/"
+//    private var BASE_URL = base()
 
 //    private val BASE_URL_WCB = "https://wcb.prosolonline.com/"
     private val BASE_URL_WCB = "https://adportsgroup.prosolonline.com/"
 //    private val BASE_URL = "https://testing.prosolonline.com/"
+
+
+    fun base():String{
+        if (iStockApplication.appPreference.KEY_ACCESS_TOKEN_TYPE==""){
+             BASE_URL =  "https://adportsgroup.prosolonline.com/"
+        }else{
+            BASE_URL = iStockApplication.appPreference.KEY_ACCESS_TOKEN_TYPE
+        }
+        return BASE_URL
+    }
+
     fun getUsersService(): iStockApi{
 
         val interceptor = HttpLoggingInterceptor()

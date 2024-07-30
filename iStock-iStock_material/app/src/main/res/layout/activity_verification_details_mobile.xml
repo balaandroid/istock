@@ -394,14 +394,14 @@
                                     style="@style/edittext_style_multiline"
                                     android:hint="@string/type_here"
                                     android:id="@+id/idDescriptionTar"
-                                    android:inputType="textCapCharacters|textNoSuggestions"
+                                    android:scrollbars="vertical"
+                                    android:gravity="top|start"
+                                    android:maxLines="10"
+                                    android:inputType="textCapCharacters|textNoSuggestions|textMultiLine"
                                     android:textColor="@color/text_photo_color"
                                     android:textSize="@dimen/_11ssp" />
 
                             </LinearLayout>
-
-
-
 
                         </LinearLayout>
 
@@ -834,7 +834,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!--                    android:visibility="@{viewModel.dropDownVisibility == '1' ? View.VISIBLE : View.GONE}"-->
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -1650,8 +1649,7 @@
                                     style="@style/edittext_style_without_drawable"
                                     android:layout_height="@dimen/_50sdp"
                                     android:hint="@string/type_here"
-                                    android:maxLines="3"
-                                    android:minLines="3"
+                                    android:maxLines="10"
                                     android:inputType="textCapCharacters|textNoSuggestions|textMultiLine"
                                     android:gravity="top|start"
                                     android:scrollHorizontally="false"
@@ -1662,6 +1660,34 @@
                                     android:textSize="@dimen/_11ssp" />
 
                             </LinearLayout>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/imageViewAudio_pvRemark"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="#FFFFFF"
+                                android:elevation="2dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:translationZ="2dp"
+                                app:cardBackgroundColor="#FFFFFF"
+                                app:cardCornerRadius="22dp"
+                                app:cardElevation="2dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:cardPreventCornerOverlap="false"
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="0dp">
+
+                                <ImageView
+                                    android:id="@+id/imageAudio_pv_rm"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/record_audio_ic" />
+
+
+                            </androidx.cardview.widget.CardView>
 
                         </LinearLayout>
 
@@ -1948,7 +1974,7 @@
                                     android:id="@+id/first_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/cameraTv" />
 
@@ -1969,7 +1995,7 @@
                                     android:id="@+id/second_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/corrosionTv" />
 
@@ -2011,6 +2037,7 @@
                                     tools:background="@drawable/ic_radiobutton_green" />
 
                                 <ImageButton
+                                    android:id="@+id/imageButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
                                     android:background="@color/white"
@@ -2022,6 +2049,9 @@
                                     app:layout_constraintLeft_toLeftOf="@+id/cameraTv"
                                     app:layout_constraintRight_toRightOf="@+id/cameraTv"
                                     app:layout_constraintTop_toTopOf="@+id/corrosionTv" />
+
+
+
 
                                 <ImageButton
                                     android:layout_width="wrap_content"
@@ -2080,7 +2110,7 @@
                                     android:id="@+id/third_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/damageTv" />
 
@@ -2137,7 +2167,7 @@
                                     android:id="@+id/fourth_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/leakageTv" />
 
@@ -2194,7 +2224,7 @@
                                     android:id="@+id/fifth_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/vibrationTv" />
 
@@ -2251,7 +2281,7 @@
                                     android:id="@+id/sixth_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/temperatureTv" />
 
@@ -2308,7 +2338,7 @@
                                     android:id="@+id/seventh_line"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="@dimen/_10sdp"
                                     android:background="#80000000"
                                     app:layout_constraintTop_toBottomOf="@+id/smellTv" />
 
@@ -2400,43 +2430,86 @@
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                             <LinearLayout
-                                android:id="@+id/idRemarkContainer"
+                                android:id="@+id/idRemarkContainer_parent"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/asset_box_bg">
+                                app:layout_constraintTop_toBottomOf="@+id/asset_box_bg"
+                                android:orientation="horizontal">
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    android:layout_width="wrap_content"
+
+                                <LinearLayout
+                                    android:id="@+id/idRemarkContainer"
+                                    android:layout_width="0dp"
+                                    android:layout_marginEnd="@dimen/_2sdp"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:contentDescription="@string/nav_header_desc"
-                                    android:fontFamily="@font/poppins_medium"
-                                    android:text="@string/txt_remark"
-                                    android:textColor="@color/side_menu_text_color"
-                                    android:textSize="12sp" />
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:contentDescription="@string/nav_header_desc"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:text="@string/txt_remark"
+                                        android:textColor="@color/side_menu_text_color"
+                                        android:textSize="12sp" />
 
 
-                                <EditText
-                                    android:id="@+id/remark"
-                                    style="@style/edittext_style_without_drawable"
-                                    android:layout_height="@dimen/_50sdp"
-                                    android:layout_width="match_parent"
-                                    android:hint="@string/type_here"
-                                    android:maxLines="3"
-                                    android:minLines="3"
-                                    android:inputType="textCapCharacters|textNoSuggestions|textMultiLine"
-                                    android:gravity="top|start"
-                                    android:scrollHorizontally="false"
-                                    android:overScrollMode="always"
-                                    android:scrollbars="vertical"
-                                    android:imeOptions="flagNoEnterAction"
-                                    android:textColor="@color/text_photo_color"
-                                    android:textSize="@dimen/_11ssp" />
+                                    <EditText
+                                        android:id="@+id/remark"
+                                        style="@style/edittext_style_without_drawable"
+                                        android:layout_height="@dimen/_50sdp"
+                                        android:layout_width="match_parent"
+                                        android:hint="@string/type_here"
+                                        android:maxLines="13"
+                                        android:inputType="textCapCharacters|textNoSuggestions|textMultiLine"
+                                        android:gravity="top|start"
+                                        android:scrollHorizontally="false"
+                                        android:overScrollMode="always"
+                                        android:scrollbars="vertical"
+                                        android:imeOptions="flagNoEnterAction"
+                                        android:textColor="@color/text_photo_color"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                </LinearLayout>
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/imageViewAudio"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:background="#FFFFFF"
+                                    android:elevation="2dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_2sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:translationZ="2dp"
+                                    app:cardBackgroundColor="#FFFFFF"
+                                    app:cardCornerRadius="22dp"
+                                    app:cardElevation="2dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:cardPreventCornerOverlap="false"
+                                    app:cardUseCompatPadding="false"
+                                    app:contentPadding="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/imageAudio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/record_audio_ic" />
+
+
+                                </androidx.cardview.widget.CardView>
+
 
                             </LinearLayout>
+
 
                             <LinearLayout
                                 android:id="@+id/first_ll"
@@ -2444,7 +2517,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/idRemarkContainer">
+                                app:layout_constraintTop_toBottomOf="@+id/idRemarkContainer_parent">
 
                                 <LinearLayout
                                     android:layout_width="0dp"
@@ -2848,6 +2921,11 @@
 
                         </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -2872,8 +2950,7 @@
                                 style="@style/edittext_style_without_drawable"
                                 android:layout_height="@dimen/_50sdp"
                                 android:hint="@string/type_here"
-                                android:maxLines="3"
-                                android:minLines="3"
+                                android:maxLines="10"
                                 android:inputType="textCapCharacters|textNoSuggestions|textMultiLine"
                                 android:gravity="top|start"
                                 android:scrollHorizontally="false"
@@ -2883,7 +2960,39 @@
                                 android:textColor="@color/text_photo_color"
                                 android:textSize="@dimen/_11ssp" />
 
+
                         </LinearLayout>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/imageViewAudio_rework_rm"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="#FFFFFF"
+                            android:elevation="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:translationZ="2dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:cardPreventCornerOverlap="false"
+                            app:cardUseCompatPadding="false"
+                            app:contentPadding="0dp">
+
+                            <ImageView
+                                android:id="@+id/imageAudio_rework_rm"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/record_audio_ic" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
 
 
                     </LinearLayout>
@@ -4019,6 +4128,35 @@
                                     android:textSize="@dimen/_11ssp" />
 
                             </LinearLayout>
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/imageViewAudio_add_notes"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="#FFFFFF"
+                                android:elevation="2dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:translationZ="2dp"
+                                app:cardBackgroundColor="#FFFFFF"
+                                app:cardCornerRadius="22dp"
+                                app:cardElevation="2dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:cardPreventCornerOverlap="false"
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="0dp">
+
+                                <ImageView
+                                    android:id="@+id/imageAudio_add_notes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/record_audio_ic" />
+
+
+                            </androidx.cardview.widget.CardView>
 
                             <LinearLayout
                                 android:visibility="gone"

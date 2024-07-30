@@ -24,6 +24,8 @@ object CommonUtils {
      * @return boolean true if the Internet Connection is Available and false otherwise
      */
 
+    private lateinit var session:SessionManager
+
     fun showLog(message: String){
         Log.e("iStock", message )
     }
@@ -94,6 +96,27 @@ object CommonUtils {
             }
         val alert = builder.create()
         alert.setTitle( context.resources.getString(R.string.app_name))
+        alert.show()
+    }
+
+
+    fun showApiLogout(context: Context, url: String){
+        session= SessionManager(context)
+        var builder: AlertDialog.Builder? = null
+        builder = AlertDialog.Builder(context)
+        builder.setTitle(context.resources.getString(R.string.app_name) +" Confirm URL Selection")
+        builder.setMessage("Are you sure you want to select this URL? If yes, the app will refresh to use the selected base URL.")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                iStockApplication.appPreference.clearAppPreference()
+                LoginActivity.start(context)
+                iStockApplication.appPreference.KEY_ACCESS_TOKEN_TYPE=url
+            }
+            .setNegativeButton("No") { dialog, id -> //  Action for 'NO' Button
+                dialog.cancel()
+            }
+        val alert = builder.create()
+//        alert.setTitle( context.resources.getString(R.string.app_name))
         alert.show()
     }
 

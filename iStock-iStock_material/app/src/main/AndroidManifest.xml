@@ -9,10 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera.any" />
 
@@ -42,9 +40,13 @@
         tools:ignore="DataExtractionRules"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".googleMap.GoogleMapActivity"
+            android:name=".ApiListActivity"
             android:exported="false"
             android:theme="@style/Theme.IStock.NoActionBar"/>
+        <activity
+            android:name=".googleMap.GoogleMapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.IStock.NoActionBar" />
         <activity
             android:name=".CompletedReportActivity"
             android:exported="false"
@@ -53,7 +55,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCSLDGrjkwrVhqe2zs8a7R1FfY7XRKyfBI" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

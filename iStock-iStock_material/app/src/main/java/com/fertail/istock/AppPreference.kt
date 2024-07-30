@@ -30,8 +30,6 @@ class AppPreference @Inject constructor(context: Context) {
         private val _AssetTypeMaster = "AssetTypeMaster"
 
 
-
-
     }
 
     init {
@@ -51,6 +49,8 @@ class AppPreference @Inject constructor(context: Context) {
         preference.edit().putString(_KEY_PVData_Completed_Item, "").apply()
         preference.edit().putString(_KEY_All_Master, "").apply()
         preference.edit().putString(_KEY_PVData_master, "").apply()
+        preference.edit().putString(KEY_ACCESS_TOKEN_TYPE, "").apply()
+
 
         iStockApplication.pvDataCompletedModel.data.clear()
         iStockApplication.pvDataModel.data.clear()
@@ -93,7 +93,7 @@ class AppPreference @Inject constructor(context: Context) {
             preference.edit().putBoolean(_KEY_IS_LOGGED_IN, value).apply()
         }
         get() {
-            return preference.getBoolean(_KEY_IS_LOGGED_IN, false)!!
+            return preference.getBoolean(_KEY_IS_LOGGED_IN, false)
         }
 
 
@@ -191,13 +191,6 @@ class AppPreference @Inject constructor(context: Context) {
         get() {
             return preference.getString(_AssetTypeMaster, "")!!
         }
-
-
-
-
-
-
-
 
 
     //*------------------------------------ Locale ---------------------------------------------------------------*//

@@ -3,27 +3,41 @@ package com.fertail.istock
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -33,9 +47,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fertail.istock.databinding.ActivityVerificationDetailsNewBinding
 import com.fertail.istock.databinding.ItemPhysicslObsBinding
-import com.fertail.istock.iStockApplication.Companion.getWorkbookUriList
-import com.fertail.istock.iStockApplication.Companion.saveWorkbookUriList
 import com.fertail.istock.model.*
+import com.fertail.istock.ui.bottomsheet.ChooseMassterBottomsheet.Companion.TAG
 import com.fertail.istock.ui.bottomsheet.ChooseModifierBottomsheet
 import com.fertail.istock.ui.bottomsheet.ChooseNounBottomsheet
 import com.fertail.istock.ui.bottomsheet.FunctionalLocationChooseBottomsheet
@@ -78,15 +91,12 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -110,7 +120,15 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
     val nounList: ArrayList<NounTable> = ArrayList()
 
-    private val uriArrayList=ArrayList<Uri>()
+    private val uriArrayList = ArrayList<Uri>()
+
+    private var isRecording = false
+    private lateinit var speechRecognizer: SpeechRecognizer
+    private lateinit var recognizerIntent: Intent
+    private val REQUEST_RECORD_AUDIO_PERMISSION = 200
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var speechResultLauncher: ActivityResultLauncher<Intent>
+    private var targetTextView: EditText? = null
 
 
     private val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -126,7 +144,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
     private val activityLauncher =
         registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) {
+            ActivityResultContracts.StartActivityForResult()
+        ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val data = ImageClass()
                 if (cameraorgallery == GALLERYTEXT) {
@@ -144,11 +163,14 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                                         fileUploadViewModel.uploadFile(
                                             it.name,
                                             it,
-                                            this@VerificationDetailsNewActivity)
+                                            this@VerificationDetailsNewActivity
+                                        )
 
                                         if (mAction.equals(idAddNamePlate)) {
-                                            recognizeText(InputImage.fromFilePath(
-                                                    this@VerificationDetailsNewActivity, data.uri!!)
+                                            recognizeText(
+                                                InputImage.fromFilePath(
+                                                    this@VerificationDetailsNewActivity, data.uri!!
+                                                )
                                             )
                                         }
                                     } else {
@@ -166,7 +188,9 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                                                 recognizeText(
                                                     InputImage.fromFilePath(
                                                         this@VerificationDetailsNewActivity,
-                                                        data.uri!!))
+                                                        data.uri!!
+                                                    )
+                                                )
                                             }
                                         }
                                     }
@@ -183,7 +207,7 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         }
 
     companion object {
-         var mPVData = PVData()
+        var mPVData = PVData()
         fun start(caller: Context, data: PVData) {
             val intent = Intent(caller, VerificationDetailsNewActivity::class.java)
             mPVData = data
@@ -191,11 +215,36 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         }
 
         val headers = listOf(
-            "Item Code", "Material Code", "Material Description", "Noun", "Modifier", "Attribute", "Value", "SAP Code",
-            "Storage Location", "Storage Bin", "Sys Balance", "Uom", "Manufacturer Name", "Part Number", "Model Number", "Equip Name", "Equip Model No",
-            "Equip Manufacture", "Equip Tag No", "Equip Serial No", "Additional information", "PHY Balance",
-            "Bin Updation/Miss Placed", "Material Images", "Name Plate Images", "Name Plate Text", "Additional info", "Remark",
-            "Physical Observation", "No.Of.Items"
+            "Item Code",
+            "Material Code",
+            "Material Description",
+            "Noun",
+            "Modifier",
+            "Attribute",
+            "Value",
+            "SAP Code",
+            "Storage Location",
+            "Storage Bin",
+            "Sys Balance",
+            "Uom",
+            "Manufacturer Name",
+            "Part Number",
+            "Model Number",
+            "Equip Name",
+            "Equip Model No",
+            "Equip Manufacture",
+            "Equip Tag No",
+            "Equip Serial No",
+            "Additional information",
+            "PHY Balance",
+            "Bin Updation/Miss Placed",
+            "Material Images",
+            "Name Plate Images",
+            "Name Plate Text",
+            "Additional info",
+            "Remark",
+            "Physical Observation",
+            "No.Of.Items"
         )
     }
 
@@ -211,15 +260,27 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         initViewClicks()
         observeDatabase()
 
+
+        speechResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val matches = result.data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                if (!matches.isNullOrEmpty()) {
+                    val recognizedText = matches[0].uppercase(Locale.getDefault())
+                    targetTextView?.append(" $recognizedText") // Append the new recognized text to the TextView
+                }
+            }
+        }
+
         if (iStockApplication.appPreference.KEY_All_Master.equals("")) {
             viewModel.getAllMaster()
         } else {
             val gson = Gson()
-            val jsonString = iStockApplication.appPreference.KEY_All_Master // Assuming this is your JSON string
+            val jsonString =
+                iStockApplication.appPreference.KEY_All_Master // Assuming this is your JSON string
             val myType = object : TypeToken<GetAllMasterDataResponse>() {}.type
 
             try {
-              masterData = gson.fromJson<GetAllMasterDataResponse>(jsonString, myType)
+                masterData = gson.fromJson<GetAllMasterDataResponse>(jsonString, myType)
             } catch (e: JsonSyntaxException) {
                 e.printStackTrace()
             }
@@ -230,6 +291,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
             updateData()
         }
     }
+
+
 
     private fun observeDatabase() {
         lifecycleScope.launch {
@@ -244,6 +307,17 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     }
 
     private fun initViewClicks() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions()
+        }else{
+//                initializeSpeechRecognizer()
+        }
+
+
+
+        binding.imageViewAudio.setOnClickListener {startSpeechRecognition(binding.idRemark) }
+        binding.imageViewAudioAdd.setOnClickListener {startSpeechRecognition(binding.idAdditionalInfo) }
+
 
         binding.btnSave.setOnClickListener {
             saveDataToLocal()
@@ -507,10 +581,7 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNetworkChangeEvent(event: String) {
@@ -662,104 +733,104 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
         }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        override fun onTextChanged(txt_data: CharSequence?, p1: Int, p2: Int, p3: Int) {
             if (type.equals("idMake")) {
-                mPVData.make = p0.toString()
+                mPVData.make = txt_data.toString()
             }
 
             if (type.equals("idModelPartNo")) {
-                mPVData.model = p0.toString()
+                mPVData.model = txt_data.toString()
             }
 
             if (type.equals("sapCode")) {
-                mPVData.sapcode = p0.toString()
+                mPVData.sapcode = txt_data.toString()
             }
             if (type.equals("idStorageBin")) {
-                mPVData.storagebin = p0.toString()
+                mPVData.storagebin = txt_data.toString()
             }
 
             if (type.equals("idSysBal")) {
-                mPVData.sysbal = p0.toString()
+                mPVData.sysbal = txt_data.toString()
             }
             if (type.equals("idUOM")) {
-                mPVData.uOM = p0.toString()
+                mPVData.uOM = txt_data.toString()
             }
 
 
             if (type.equals("idPhysicalObservation")) {
-                mPVData.pysicalObservation = p0.toString()
+                mPVData.pysicalObservation = txt_data.toString()
             }
 
             if (type.equals("idNoOfItemPV")) {
-                mPVData.pysicalObservationQty = p0.toString()
+                mPVData.pysicalObservationQty = txt_data.toString()
             }
 
             if (type.equals("idNoOfItemExpired")) {
-                mPVData.expiredQty = p0.toString()
+                mPVData.expiredQty = txt_data.toString()
             }
             if (type.equals("idSelfLife")) {
-                mPVData.selfLife = p0.toString()
+                mPVData.selfLife = txt_data.toString()
             }
 
             if (type.equals("idBINUpdation")) {
-                mPVData.binUpdation = p0.toString()
+                mPVData.binUpdation = txt_data.toString()
             }
 
             if (type.equals("idAdditionalInfo")) {
-                mPVData.additioninfo = p0.toString()
+                mPVData.additioninfo = txt_data.toString()
             }
             if (type.equals("idRemark")) {
-                mPVData.cRemarks = p0.toString()
+                mPVData.cRemarks = txt_data.toString()
             }
             if (type.equals("idDescription")) {
-                mPVData.materialDesc = p0.toString()
+                mPVData.materialDesc = txt_data.toString()
             }
 
             if (type.equals("idDisc")) {
-                mPVData.materialDesc = p0.toString()
+                mPVData.materialDesc = txt_data.toString()
             }
 
             if (type.equals("idStorageLocation")) {
-                mPVData.stockRemark = p0.toString()
+                mPVData.stockRemark = txt_data.toString()
             }
 
             if (type.equals("idEquipAdditionalInfo")) {
-                mPVData.equipment.additionalinfo = p0.toString()
+                mPVData.equipment.additionalinfo = txt_data.toString()
             }
 
             if (type.equals("idEquipName")) {
-                mPVData.equipment.name = p0.toString()
+                mPVData.equipment.name = txt_data.toString()
             }
 
             if (type.equals("idPhyBal")) {
-                mPVData.pysbal = p0.toString()
+                mPVData.pysbal = txt_data.toString()
             }
 
             if (type.equals("idSerialNo")) {
-                mPVData.equipment.serialno = p0.toString()
+                mPVData.equipment.serialno = txt_data.toString()
             }
 
             if (type.equals("idEquipTagNo")) {
-                mPVData.equipment.tagno = p0.toString()
+                mPVData.equipment.tagno = txt_data.toString()
             }
 
             if (type.equals("idEquipManufacture")) {
-                mPVData.equipment.manufacturer = p0.toString()
+                mPVData.equipment.manufacturer = txt_data.toString()
             }
 
             if (type.equals("idEquipModelNo")) {
-                mPVData.equipment.modelno = p0.toString()
+                mPVData.equipment.modelno = txt_data.toString()
             }
 
             if (type.equals("idManufacturerName")) {
-                mPVData.vendorsuppliers.manufacture = p0.toString()
+                mPVData.vendorsuppliers.manufacture = txt_data.toString()
             }
             if (type.equals("idParthNo")) {
-                mPVData.vendorsuppliers.partNo = p0.toString()
+                mPVData.vendorsuppliers.partNo = txt_data.toString()
             }
 
             if (type.equals("idModelNo")) {
-                mPVData.vendorsuppliers.modelNo = p0.toString()
+                mPVData.vendorsuppliers.modelNo = txt_data.toString()
             }
 
         }
@@ -1110,7 +1181,6 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                         supportFragmentManager,
                         FunctionalLocationChooseBottomsheet.TAG)
                 }else{
-
                     Toast.makeText(this,"No data Available here !!",Toast.LENGTH_SHORT).show()
                 }
 
@@ -1141,7 +1211,8 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         }
 
         mAdapter.expressionOnCreateViewHolder = { viewGroup ->
-            ItemPhysicslObsBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+            ItemPhysicslObsBinding.inflate(LayoutInflater.from(viewGroup.context),
+                viewGroup, false)
         }
 
         //finally put the adapter to recyclerview
@@ -1170,7 +1241,6 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
     }
 
     private fun saveDataToLocal() {
-
         CommonUtils.showAlertWithCancel(
             this,
             "Item Saved successfully in local database",
@@ -1194,7 +1264,6 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
                     var i = 0
                     var id = -1
                     for (x in iStockApplication.pvDataModel.data) {
-
                         if (x.assetNo.equals(mPVData.assetNo)) {
                             id = i
                             break
@@ -1591,7 +1660,6 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
 
                     Log.e("", "processTextBlock ==>> " + elementText)
 
-
                 }
             }
         }
@@ -1603,6 +1671,151 @@ class VerificationDetailsNewActivity : BaseActivity(), actionSelected {
         }
 
     }
+
+
+    private fun initializeSpeechRecognizer() {
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
+            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 5000) // Adjust this value
+            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 3000) // Adjust this value
+        }
+
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle?) {
+                Log.d("SpeechRecognizer", "Ready for speech")
+            }
+
+            override fun onBeginningOfSpeech() {
+                Log.d("SpeechRecognizer", "Speech beginning")
+            }
+
+            override fun onRmsChanged(rmsdB: Float) {
+                // Optionally log or use this value  for a visual feedback of the sound level
+            }
+
+            override fun onBufferReceived(buffer: ByteArray?) {
+                Log.d("SpeechRecognizer", "Buffer received")
+            }
+
+            override fun onEndOfSpeech() {
+                Log.d("SpeechRecognizer", "Speech end")
+            }
+
+            override fun onError(error: Int) {
+                val errorMessage = handleSpeechError(error)
+                Log.e("SpeechRecognizer", "Error: $errorMessage")
+                stopListening()
+                handler.postDelayed({ startListening() }, 1000)
+                Toast.makeText(this@VerificationDetailsNewActivity, "Speech recognition error: $errorMessage", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResults(results: Bundle?) {
+//                val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+//                if (matches != null) {
+//                    binding.idRemark.text = matches[0]
+//                    binding.idRemark.text = matches[0]
+//                }
+                stopListening()
+            }
+
+            override fun onPartialResults(partialResults: Bundle?) {
+                val partial = partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+//                if (partial != null && partial.isNotEmpty()) {
+//                    binding.idRemark.text = partial[0]
+//                    Log.d(TAG, "Partial Results: ${partial[0]}")
+//                }
+                Log.d("SpeechRecognizer", "Partial results received")
+            }
+
+            override fun onEvent(eventType: Int, params: Bundle?) {
+                Log.d("SpeechRecognizer", "Event occurred: $eventType")
+            }
+        })
+    }
+
+    private fun startListening() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            speechRecognizer.startListening(recognizerIntent)
+            binding.imageAudio.setImageResource(R.drawable.pause_iv)
+            isRecording = true
+            Log.d("SpeechRecognizer", "Listening started")
+        } else {
+            Toast.makeText(this, "Permission to record audio is required", Toast.LENGTH_SHORT).show()
+            requestPermissions()
+        }
+    }
+
+    private fun stopListening() {
+        if (isRecording) {
+            speechRecognizer.stopListening()
+            speechRecognizer.cancel()
+            speechRecognizer.destroy()
+            initializeSpeechRecognizer()
+            binding.imageAudio.setImageResource(R.drawable.record_audio_ic)
+            isRecording = false
+            Log.d(TAG, "Listening stopped")
+        }
+    }
+
+
+    private fun handleSpeechError(errorCode: Int): String {
+        return when (errorCode) {
+            SpeechRecognizer.ERROR_AUDIO -> "Audio recording error"
+            SpeechRecognizer.ERROR_CLIENT -> "Client side error"
+            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "Insufficient permissions"
+            SpeechRecognizer.ERROR_NETWORK -> "Network error"
+            SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Network timeout"
+            SpeechRecognizer.ERROR_NO_MATCH -> "No match found"
+            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Recognizer busy"
+            SpeechRecognizer.ERROR_SERVER -> "Server error"
+            SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "Speech input timeout"
+            else -> "Unknown error"
+        }
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            REQUEST_RECORD_AUDIO_PERMISSION)
+    }
+
+
+    private fun startSpeechRecognition(target: EditText){
+        targetTextView = target
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1)
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
+        intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 30000) // Adjust this value
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 25000)
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to text")
+        try {
+            speechResultLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this@VerificationDetailsNewActivity, "Speech recognition not supported", Toast.LENGTH_SHORT).show()
+        } catch (e: SecurityException) {
+            Toast.makeText(this@VerificationDetailsNewActivity, "Permission denied", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this@VerificationDetailsNewActivity, "Error: " + e.message, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+        if (::speechRecognizer.isInitialized) {
+            speechRecognizer.destroy()
+        }
+    }
+
 
 
 }

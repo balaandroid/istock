@@ -59,7 +59,6 @@ class DashboardActivity : AppCompatActivity()  {
         }
 
 
-
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_home, R.id.nav_profile, R.id.nav_verification,
                 R.id.nav_report_list),binding.drawerLayout)

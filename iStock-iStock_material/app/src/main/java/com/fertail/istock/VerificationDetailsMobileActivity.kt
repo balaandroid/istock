@@ -4,12 +4,15 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.*
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -23,13 +26,18 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.Settings
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -62,27 +70,16 @@ import com.fertail.istock.util.NetworkUtils
 import com.fertail.istock.util.SessionManager
 import com.fertail.istock.util.UriWithDate
 import com.fertail.istock.view_model.*
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import com.google.zxing.integration.android.IntentIntegrator
-import com.google.zxing.integration.android.IntentResult
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
-import com.journeyapps.barcodescanner.CaptureActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import jxl.Workbook
@@ -132,6 +129,12 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
     private var uri: Uri? = null
     private val uriArrayList=ArrayList<Uri>()
     private lateinit var session: SessionManager
+    private lateinit var dialog: Dialog
+    private val CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 24
+    private val PICK_MEDIA = 25
+
+    private lateinit var speechResultLauncher: ActivityResultLauncher<Intent>
+    private var targetTextView: EditText? = null
 
 
     val options = arrayOf("Yes", "No")
@@ -333,6 +336,17 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         session= SessionManager(this)
 
         context = this
+
+        speechResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val matches = result.data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                if (!matches.isNullOrEmpty()) {
+                    val recognizedText = matches[0].uppercase(Locale.getDefault())
+                    targetTextView?.append(" $recognizedText") // Append the new recognized text to the TextView
+                }
+            }
+        }
+
 
         setContentView(binding.root)
         setViewClick()
@@ -795,11 +809,14 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
 
     private fun setViewClick() {
+        binding.imageViewAudioPvRemark.setOnClickListener {startSpeechRecognition(binding.idRemark)  }
+        binding.imageViewAudio.setOnClickListener {startSpeechRecognition(binding.remark)  }
+        binding.imageViewAudioReworkRm.setOnClickListener {startSpeechRecognition(binding.idNouneModifierRemark)  }
+        binding.imageViewAudioAddNotes.setOnClickListener {startSpeechRecognition(binding.idRemarkNew)  }
+
 
 
         binding.idClear.setOnClickListener {
-
-
             binding.oldTagId.text = ""
             mPVData.oldTagNo = ""
         }
@@ -991,6 +1008,11 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 .check()
 
         }
+
+
+//        binding.videoView.setOnClickListener {
+//            videoOpenDialog()
+//        }
 
 
 
@@ -2085,7 +2107,6 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
 
 
     private fun calculateRank() {
-
         if (observableCorrosion.get().equals('h') || observableDamage.get().equals('h')
             || observableLeakage.get().equals('h') || observableVibration.get()
                 .equals('h') || observableTemperature.get().equals('h')
@@ -2177,7 +2198,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
     ): Bitmap? {
         var bitmap: Bitmap? = null
         if (Build.VERSION.SDK_INT < 27) {
-            val picturePath = getPath(context, videoUri!!)
+            val picturePath = getPath(context, videoUri)
             Log.i("TAG", "picturePath $picturePath")
             if (picturePath == null) {
                 val mMMR = MediaMetadataRetriever()
@@ -2302,7 +2323,7 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
      * (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    fun getDataColumn(
+    private fun getDataColumn(
         context: Context, uri: Uri?,
         selection: String?, selectionArgs: Array<String>?,
     ): String? {
@@ -2394,7 +2415,6 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         mAction = from
 
         if (action.equals(CAMERATEXT)) {
-
             TedPermission.create()
                 .setPermissionListener(object : PermissionListener {
                     override fun onPermissionGranted() {
@@ -2417,7 +2437,6 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
         }
 
         if (action.equals(CAPTUREVIDEO)) {
-
             TedPermission.create()
                 .setPermissionListener(object : PermissionListener {
                     override fun onPermissionGranted() {
@@ -2811,6 +2830,101 @@ class VerificationDetailsMobileActivity : BaseActivity(), actionSelected, itemCl
                 )
 
             }
+        }
+    }
+
+
+    private fun videoOpenDialog(){
+        dialog = Dialog(this)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.video_option_select)
+
+        val Ll_TakeFrom_Camera = dialog.findViewById<View>(R.id.Ll_TakeFrom_Camera) as LinearLayout
+        val Ll_TakeFrom_Gallery = dialog.findViewById<View>(R.id.Ll_TakeFrom_Gallery) as LinearLayout
+        val Rl_Cancel = dialog.findViewById<View>(R.id.Rl_Cancel) as RelativeLayout
+
+        Ll_TakeFrom_Camera.setOnClickListener {
+//            setVideo()
+            dialog.dismiss()
+        }
+        Ll_TakeFrom_Gallery.setOnClickListener {
+            openGalleryVideo()
+            dialog.dismiss()
+        }
+        Rl_Cancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
+
+    private fun openGalleryVideo() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) !=
+                PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) !=
+                PackageManager.PERMISSION_GRANTED) {
+                videoPermission()
+            } else {
+                videoGallery()
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                videoPermission()
+            } else {
+                videoGallery()
+            }
+        }
+    }
+
+
+    private fun videoGallery() {
+        val gallery = Intent(Intent.ACTION_PICK)
+        gallery.type=("video/*")
+        startActivityForResult(gallery, PICK_MEDIA)
+    }
+
+
+    private fun startSpeechRecognition(target: EditText){
+        targetTextView = target
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1)
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
+        intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 30000) // Adjust this value
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 25000)
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to text")
+        try {
+            speechResultLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this@VerificationDetailsMobileActivity, "Speech recognition not supported", Toast.LENGTH_SHORT).show()
+        } catch (e: SecurityException) {
+            Toast.makeText(this@VerificationDetailsMobileActivity, "Permission denied", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this@VerificationDetailsMobileActivity, "Error: " + e.message, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+
+    private fun videoPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_VIDEO,
+                    Manifest.permission.READ_MEDIA_AUDIO), CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE)
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE), CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE)
         }
     }
 

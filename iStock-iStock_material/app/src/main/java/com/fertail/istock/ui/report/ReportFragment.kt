@@ -1,6 +1,5 @@
 package com.fertail.istock.ui.report
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
-import com.fertail.istock.AppPreference
 import com.fertail.istock.CompletedReportActivity
 import com.fertail.istock.DashboardActivity
-import com.fertail.istock.LoginActivity
 import com.fertail.istock.R
 import com.fertail.istock.databinding.FragmentReportBinding
 import com.fertail.istock.ui.BaseFragment
